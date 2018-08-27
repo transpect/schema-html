@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="html5.flow.model">
+    <ref name="html5.flow.model.html5"/>
+  </define>
+  <define name="html5.flow.model.html5">
+    <zeroOrMore>
+      <ref name="html5.flow.class"/>
+    </zeroOrMore>
+  </define>
+  <define name="html5.grouping.model">
+    <oneOrMore>
+      <ref name="html5.grouping.class"/>
+    </oneOrMore>
+  </define>
+  <define name="html5.phrasing.model">
+    <oneOrMore>
+      <ref name="html5.phrasing.class"/>
+    </oneOrMore>
+  </define>
+  <define name="html5.section.model">
+    <ref name="html5.section.model.html5"/>
+  </define>
+  <define name="html5.section.model.html5">
+    <ref name="html5.flow.model"/>
+  </define>
+</grammar>

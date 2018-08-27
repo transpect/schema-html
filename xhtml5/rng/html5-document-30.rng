@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <define name="html5.html">
+    <element name="html">
+      <ref name="html5.html.attlist"/>
+      <ref name="html5.head"/>
+      <ref name="html5.body"/>
+    </element>
+  </define>
+  <define name="html5.html.attlist" combine="interleave">
+    <ref name="html5.global.attrs"/>
+  </define>
+  <define name="html5.head">
+    <element name="head">
+      <interleave>
+        <ref name="html5.head.attlist"/>
+        <ref name="html5.head.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.head.attlist" combine="interleave">
+    <ref name="html5.global.attrs"/>
+  </define>
+  <define name="html5.head.content">
+    <interleave>
+      <optional>
+        <ref name="html5.title"/>
+      </optional>
+      <optional>
+        <ref name="html5.base"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="html5.metadata.class"/>
+      </zeroOrMore>
+    </interleave>
+  </define>
+  <define name="html5.metadata.class" combine="choice">
+    <choice>
+      <ref name="html5.link"/>
+      <ref name="html5.meta"/>
+    </choice>
+  </define>
+  <define name="html5.body">
+    <element name="body">
+      <interleave>
+        <ref name="html5.body.attlist"/>
+        <ref name="html5.body.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.body.attlist" combine="interleave">
+    <ref name="html5.global.attrs"/>
+  </define>
+  <define name="html5.body.content">
+    <ref name="html5.section.model"/>
+  </define>
+  <define name="html5.base">
+    <element name="base">
+      <ref name="html5.base.attlist"/>
+    </element>
+  </define>
+  <define name="html5.base.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <choice>
+        <interleave>
+          <ref name="html5.href.attr"/>
+          <optional>
+            <ref name="html5.target.attr"/>
+          </optional>
+        </interleave>
+        <ref name="html5.target.attr"/>
+      </choice>
+    </interleave>
+  </define>
+  <define name="html5.link">
+    <element name="link">
+      <ref name="html5.link.attlist"/>
+    </element>
+  </define>
+  <define name="html5.link.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.common.attrs"/>
+      <ref name="html5.global.xml.attrs"/>
+      <optional>
+        <ref name="html5.media.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.hreflang.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.type.mime.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.link.sizes.attr"/>
+      </optional>
+      <ref name="html5.link.choice"/>
+    </interleave>
+  </define>
+  <define name="html5.link.choice">
+    <interleave>
+      <ref name="html5.rel.attr"/>
+      <ref name="html5.href.attr"/>
+    </interleave>
+  </define>
+  <define name="html5.link.sizes.attr">
+    <attribute name="sizes">
+      <choice>
+        <value>any</value>
+        <ref name="datatype.html5.sizes"/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.meta">
+    <element name="meta">
+      <ref name="html5.meta.attlist"/>
+    </element>
+  </define>
+  <define name="html5.meta.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.common.attrs"/>
+      <ref name="html5.global.xml.attrs"/>
+      <ref name="html5.meta.attrs.choice"/>
+    </interleave>
+  </define>
+  <define name="html5.meta.attrs.choice">
+    <choice>
+      <interleave>
+        <ref name="html5.meta.name.attr"/>
+        <ref name="html5.meta.content.attr"/>
+      </interleave>
+      <interleave>
+        <ref name="html5.meta.http-equiv.attr"/>
+        <ref name="html5.meta.content.attr"/>
+      </interleave>
+      <ref name="html5.charset.attr"/>
+    </choice>
+  </define>
+  <define name="html5.meta.name.attr">
+    <attribute name="name">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.meta.http-equiv.attr">
+    <attribute name="http-equiv">
+      <ref name="html5.meta.http-equiv.attr.content"/>
+    </attribute>
+  </define>
+  <define name="html5.meta.http-equiv.attr.content">
+    <data type="string">
+      <param name="pattern">([Dd][Ee][Ff][Aa][Uu][Ll][Tt]\-[Ss][Tt][Yy][Ll][Ee])|([Rr][Ee][Ff][Rr][Ee][Ss][Hh])|([Cc][Oo][Nn][Tt][Ee][Nn][Tt]\-[Tt][Yy][Pp][Ee])</param>
+    </data>
+  </define>
+  <define name="html5.meta.content.attr">
+    <attribute name="content">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.title">
+    <element name="title">
+      <interleave>
+        <ref name="html5.title.attlist"/>
+        <ref name="html5.title.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.title.attlist" combine="interleave">
+    <ref name="html5.global.attrs"/>
+  </define>
+  <define name="html5.title.content">
+    <ref name="datatype.text"/>
+  </define>
+</grammar>

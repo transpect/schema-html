@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="">
+  <define name="html5.global.attrs" combine="interleave">
+    <interleave>
+      <ref name="html5.global.common.attrs"/>
+      <ref name="html5.global.xml.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.i18n.attrs">
+    <interleave>
+      <optional>
+        <ref name="html5.xml.lang.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.lang.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.dir.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.translate.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.global.xml.attrs" combine="interleave">
+    <interleave>
+      <optional>
+        <ref name="html5.xml.lang.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.xml.base.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.xml.space.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.global.common.attrs" combine="interleave">
+    <interleave>
+      <optional>
+        <ref name="html5.lang.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.id.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.title.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.dir.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.class.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.translate.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.translate.attr">
+    <attribute name="translate">
+      <choice>
+        <value/>
+        <value>yes</value>
+        <value>no</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.lang.attr">
+    <attribute name="lang">
+      <ref name="datatype.languagecode"/>
+    </attribute>
+  </define>
+  <define name="html5.xml.lang.attr">
+    <attribute name="xml:lang">
+      <ref name="datatype.languagecode"/>
+    </attribute>
+  </define>
+  <define name="html5.dir.attr">
+    <attribute name="dir">
+      <choice>
+        <value>ltr</value>
+        <value>rtl</value>
+        <value>auto</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.id.attr">
+    <attribute name="id">
+      <ref name="datatype.html5.token"/>
+    </attribute>
+  </define>
+  <define name="html5.title.attr">
+    <attribute name="title">
+      <data type="string"/>
+    </attribute>
+  </define>
+  <define name="html5.class.attr">
+    <attribute name="class">
+      <ref name="datatype.html5.space.separated.tokens"/>
+    </attribute>
+  </define>
+  <define name="html5.xml.base.attr">
+    <attribute name="xml:base">
+      <ref name="datatype.LEIRI"/>
+    </attribute>
+  </define>
+  <define name="html5.xml.space.attr">
+    <attribute name="xml:space">
+      <choice>
+        <value>preserve</value>
+        <value>default</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.href.attr">
+    <attribute name="href">
+      <ref name="datatype.html5.URL.spaces"/>
+    </attribute>
+  </define>
+  <define name="html5.hreflang.attr">
+    <attribute name="hreflang">
+      <ref name="datatype.languagecode"/>
+    </attribute>
+  </define>
+  <define name="html5.target.attr">
+    <attribute name="target">
+      <ref name="datatype.html5.browsing.context.name.or.keyword"/>
+    </attribute>
+  </define>
+  <define name="html5.rel.attr">
+    <attribute name="rel">
+      <ref name="datatype.html5.space.separated.tokens"/>
+    </attribute>
+  </define>
+  <define name="html5.media.attr">
+    <attribute name="media">
+      <ref name="datatype.html5.media.query"/>
+    </attribute>
+  </define>
+  <define name="html5.type.mime.attr">
+    <attribute name="type">
+      <ref name="datatype.mimetype"/>
+    </attribute>
+  </define>
+  <define name="html5.type.mime.nocharset.attr">
+    <attribute name="type">
+      <ref name="datatype.mimetype.nocharset"/>
+    </attribute>
+  </define>
+  <define name="html5.charset.attr">
+    <attribute name="charset">
+      <ref name="datatype.character.encoding"/>
+    </attribute>
+  </define>
+  <define name="html5.src.attr">
+    <attribute name="src">
+      <ref name="datatype.html5.URL.spaces"/>
+    </attribute>
+  </define>
+  <define name="html5.usemap.attr">
+    <attribute name="usemap">
+      <ref name="datatype.html5.name.reference"/>
+    </attribute>
+  </define>
+  <define name="html5.cite.attr">
+    <attribute name="cite">
+      <ref name="datatype.html5.URL.spaces"/>
+    </attribute>
+  </define>
+  <define name="html5.alt.attr">
+    <attribute name="alt">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.name.context.attr">
+    <attribute name="name">
+      <ref name="datatype.html5.browsing.context.name"/>
+    </attribute>
+  </define>
+  <define name="html5.name.id.attr">
+    <attribute name="name">
+      <ref name="datatype.html5.name"/>
+    </attribute>
+  </define>
+  <define name="html5.dimension.attrs" combine="interleave">
+    <interleave>
+      <optional>
+        <ref name="html5.width.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.height.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.width.attr">
+    <attribute name="width">
+      <ref name="datatype.non-negative.integer"/>
+    </attribute>
+  </define>
+  <define name="html5.height.attr">
+    <attribute name="height">
+      <ref name="datatype.non-negative.integer"/>
+    </attribute>
+  </define>
+</grammar>

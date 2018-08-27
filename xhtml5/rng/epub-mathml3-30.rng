@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://www.w3.org/1998/Math/MathML" xmlns="http://relaxng.org/ns/structure/1.0">
+  <include href="mathml3-common.rng">
+    <start>
+      <element name="math">
+        <interleave>
+          <ref name="math.attributes"/>
+          <oneOrMore>
+            <ref name="MathExpression"/>
+          </oneOrMore>
+        </interleave>
+      </element>
+    </start>
+    <!-- redefine annotation-xml to point to ops specialization and allow validation of content mathml -->
+    <define name="annotation-xml">
+      <element name="annotation-xml">
+        <interleave>
+          <ref name="html5.annotation.xml.attlist"/>
+          <ref name="html5.annotation.xml.content"/>
+        </interleave>
+      </element>
+    </define>
+    <!-- redefine to refer to datatype proxy and remove deprecated attributes -->
+    <define name="CommonAtt">
+      <optional>
+        <attribute name="id">
+          <parentRef name="datatype.ID"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="xref">
+          <parentRef name="datatype.IDREF"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="class">
+          <parentRef name="datatype.NMTOKENS"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="style">
+          <parentRef name="datatype.string"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="href">
+          <parentRef name="datatype.URI"/>
+        </attribute>
+      </optional>
+      <zeroOrMore>
+        <ref name="NonMathMLAtt"/>
+      </zeroOrMore>
+    </define>
+    <define name="CommonAtt" combine="interleave">
+      <optional>
+        <parentRef name="epub.ssml.ph.attr"/>
+      </optional>
+    </define>
+    <!-- remove deprecated attributes -->
+    <define name="math.deprecatedattributes">
+      <empty/>
+    </define>
+    <define name="semantics.attributes">
+      <ref name="CommonAtt"/>
+    </define>
+    <!-- extend to circumvent datatype collisions -->
+    <define name="NonMathMLAtt">
+      <attribute>
+        <anyName>
+          <except>
+            <nsName ns=""/>
+            <nsName/>
+            <nsName ns="http://www.w3.org/XML/1998/namespace"/>
+            <nsName ns="http://www.w3.org/1999/xhtml"/>
+            <nsName ns="http://www.w3.org/2001/xml-events"/>
+            <nsName ns="http://www.w3.org/2001/10/synthesis"/>
+          </except>
+        </anyName>
+        <parentRef name="datatype.string"/>
+      </attribute>
+    </define>
+  </include>
+  <define name="html5.annotation.xml.attlist">
+    <interleave>
+      <ref name="CommonAtt"/>
+      <optional>
+        <attribute name="cd">
+          <value>mathmlkeys</value>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="name">
+          <choice>
+            <value>contentequiv</value>
+            <value>alternate-representation</value>
+          </choice>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="definitionURL">
+          <parentRef name="datatype.URI"/>
+        </attribute>
+      </optional>
+    </interleave>
+  </define>
+  <!-- The choice pattern for combinations of values of @encoding and actual xml annotation content. -->
+  <define name="html5.annotation.xml.content" combine="choice">
+    <choice>
+      <group>
+        <attribute name="encoding">
+          <choice>
+            <value>application/mathml-content+xml</value>
+            <value>MathML-Content</value>
+          </choice>
+        </attribute>
+        <choice>
+          <ref name="src"/>
+          <oneOrMore>
+            <ref name="ContExp"/>
+          </oneOrMore>
+        </choice>
+      </group>
+      <group>
+        <attribute name="encoding">
+          <choice>
+            <value>application/mathml-presentation+xml</value>
+            <value>MathML-Presentation</value>
+          </choice>
+        </attribute>
+        <choice>
+          <ref name="src"/>
+          <oneOrMore>
+            <ref name="MathExpression"/>
+          </oneOrMore>
+        </choice>
+      </group>
+      <group>
+        <attribute name="encoding">
+          <value>application/xhtml+xml</value>
+        </attribute>
+        <parentRef name="html5.flow.model"/>
+      </group>
+    </choice>
+  </define>
+  <!-- add xml:base -->
+  <define name="CommonAtt" combine="interleave">
+    <optional>
+      <parentRef name="html5.xml.base.attr"/>
+    </optional>
+  </define>
+  <include href="mathml3-presentation.rng">
+    <!-- redefine to refer to datatype proxy -->
+    <define name="idref">
+      <parentRef name="datatype.IDREF"/>
+    </define>
+    <!-- remove deprecated -->
+    <define name="mglyph.deprecatedattributes">
+      <empty/>
+    </define>
+    <define name="DeprecatedTokenAtt">
+      <empty/>
+    </define>
+    <define name="mstyle.deprecatedattributes">
+      <empty/>
+    </define>
+  </include>
+  <include href="mathml3-content.rng">
+    <!-- as ops allows presentation mathml only at top level, kill the contribution to MathExpression -->
+    <define name="MathExpression" combine="choice">
+      <notAllowed/>
+    </define>
+    <!-- remove deprecated -->
+    <define name="DeprecatedContExp">
+      <empty/>
+    </define>
+  </include>
+</grammar>

@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="html5.metadata.class" combine="choice">
+    <ref name="html5.script"/>
+  </define>
+  <define name="html5.flow.class" combine="choice">
+    <ref name="html5.script"/>
+  </define>
+  <define name="html5.phrasing.class" combine="choice">
+    <ref name="html5.script"/>
+  </define>
+  <define name="html5.global.common.attrs" combine="interleave">
+    <ref name="html5.global.scripting.attrs"/>
+  </define>
+  <define name="html5.body.attlist" combine="interleave">
+    <ref name="html5.scripting.body.attrs"/>
+  </define>
+  <define name="html5.script">
+    <choice>
+      <ref name="html5.script.internal"/>
+      <ref name="html5.script.external"/>
+    </choice>
+  </define>
+  <define name="html5.script.internal">
+    <element name="script">
+      <interleave>
+        <ref name="html5.script.internal.attlist"/>
+        <ref name="html5.script.internal.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.script.external">
+    <element name="script">
+      <interleave>
+        <ref name="html5.script.external.attlist"/>
+        <ref name="html5.script.external.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.script.internal.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <optional>
+        <ref name="html5.type.mime.nocharset.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.script.external.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.src.attr"/>
+      <optional>
+        <ref name="html5.script.defer.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.script.async.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.type.mime.nocharset.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.charset.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.script.defer.attr">
+    <attribute name="defer">
+      <choice>
+        <value>defer</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.script.async.attr">
+    <attribute name="async">
+      <choice>
+        <value>async</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.script.internal.content">
+    <ref name="datatype.html5.script"/>
+  </define>
+  <define name="html5.script.external.content">
+    <ref name="datatype.html5.script.documentation"/>
+  </define>
+  <define name="html5.global.scripting.attrs" combine="interleave">
+    <interleave>
+      <optional>
+        <ref name="html5.scripting.onabort.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onblur.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.oncanplay.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.oncanplaythrough.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onchange.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onclick.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.oncontextmenu.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.ondblclick.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.ondrag.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.ondragend.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.ondragenter.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.ondragleave.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.ondragover.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.ondragstart.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.ondrop.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.ondurationchange.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onemptied.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onended.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onerror.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onfocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.oninput.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.oninvalid.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onkeydown.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onkeypress.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onkeyup.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onload.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onloadeddata.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onloadedmetadata.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onloadstart.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onmousedown.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onmousemove.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onmouseout.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onmouseover.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onmouseup.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onmousewheel.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onpause.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onplay.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onplaying.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onprogress.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onratechange.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onreadystatechange.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onreset.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onscroll.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onseeked.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onseeking.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onselect.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onshow.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onstalled.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onsubmit.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onsuspend.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.ontimeupdate.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onvolumechange.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.onwaiting.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.scripting.onabort.attr">
+    <attribute name="onabort">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onblur.attr">
+    <attribute name="onblur">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.oncanplay.attr">
+    <attribute name="oncanplay">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.oncanplaythrough.attr">
+    <attribute name="oncanplaythrough">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onchange.attr">
+    <attribute name="onchange">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onclick.attr">
+    <attribute name="onclick">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.oncontextmenu.attr">
+    <attribute name="oncontextmenu">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.ondblclick.attr">
+    <attribute name="ondblclick">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.ondrag.attr">
+    <attribute name="ondrag">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.ondragend.attr">
+    <attribute name="ondragend">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.ondragenter.attr">
+    <attribute name="ondragenter">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.ondragleave.attr">
+    <attribute name="ondragleave">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.ondragover.attr">
+    <attribute name="ondragover">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.ondragstart.attr">
+    <attribute name="ondragstart">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.ondrop.attr">
+    <attribute name="ondrop">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.ondurationchange.attr">
+    <attribute name="ondurationchange">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onemptied.attr">
+    <attribute name="onemptied">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onended.attr">
+    <attribute name="onended">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onerror.attr">
+    <attribute name="onerror">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onfocus.attr">
+    <attribute name="onfocus">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.oninput.attr">
+    <attribute name="oninput">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.oninvalid.attr">
+    <attribute name="oninvalid">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onkeydown.attr">
+    <attribute name="onkeydown">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onkeypress.attr">
+    <attribute name="onkeypress">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onkeyup.attr">
+    <attribute name="onkeyup">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onload.attr">
+    <attribute name="onload">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onloadeddata.attr">
+    <attribute name="onloadeddata">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onloadedmetadata.attr">
+    <attribute name="onloadedmetadata">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onloadstart.attr">
+    <attribute name="onloadstart">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onmousedown.attr">
+    <attribute name="onmousedown">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onmousemove.attr">
+    <attribute name="onmousemove">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onmouseout.attr">
+    <attribute name="onmouseout">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onmouseover.attr">
+    <attribute name="onmouseover">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onmouseup.attr">
+    <attribute name="onmouseup">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onmousewheel.attr">
+    <attribute name="onmousewheel">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onpause.attr">
+    <attribute name="onpause">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onplay.attr">
+    <attribute name="onplay">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onplaying.attr">
+    <attribute name="onplaying">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onprogress.attr">
+    <attribute name="onprogress">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onratechange.attr">
+    <attribute name="onratechange">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onreadystatechange.attr">
+    <attribute name="onreadystatechange">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onreset.attr">
+    <attribute name="onreset">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onscroll.attr">
+    <attribute name="onscroll">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onseeked.attr">
+    <attribute name="onseeked">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onseeking.attr">
+    <attribute name="onseeking">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onselect.attr">
+    <attribute name="onselect">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onshow.attr">
+    <attribute name="onshow">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onstalled.attr">
+    <attribute name="onstalled">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onsubmit.attr">
+    <attribute name="onsubmit">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onsuspend.attr">
+    <attribute name="onsuspend">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.ontimeupdate.attr">
+    <attribute name="ontimeupdate">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onvolumechange.attr">
+    <attribute name="onvolumechange">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.onwaiting.attr">
+    <attribute name="onwaiting">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.body.attrs">
+    <interleave>
+      <optional>
+        <ref name="html5.scripting.body.onafterprint.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.body.onbeforeprint.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.body.onbeforeunload.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.body.onhashchange.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.body.onmessage.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.body.onoffline.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.body.ononline.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.body.onpopstate.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.body.onredo.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.body.onresize.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.body.onstorage.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.body.onundo.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.scripting.body.onunload.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.scripting.body.onafterprint.attr">
+    <attribute name="onafterprint">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.body.onbeforeprint.attr">
+    <attribute name="onbeforeprint">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.body.onbeforeunload.attr">
+    <attribute name="onbeforeunload">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.body.onhashchange.attr">
+    <attribute name="onhashchange">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.body.onmessage.attr">
+    <attribute name="onmessage">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.body.onoffline.attr">
+    <attribute name="onoffline">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.body.ononline.attr">
+    <attribute name="ononline">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.body.onpopstate.attr">
+    <attribute name="onpopstate">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.body.onredo.attr">
+    <attribute name="onredo">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.body.onresize.attr">
+    <attribute name="onresize">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.body.onstorage.attr">
+    <attribute name="onstorage">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.body.onundo.attr">
+    <attribute name="onundo">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+  <define name="html5.scripting.body.onunload.attr">
+    <attribute name="onunload">
+      <ref name="datatype.html5.js"/>
+    </attribute>
+  </define>
+</grammar>

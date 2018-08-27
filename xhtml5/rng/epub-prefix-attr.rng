@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns:epub="http://www.idpf.org/2007/ops" xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="html5.html.attlist" combine="interleave">
+    <optional>
+      <ref name="epub.prefix.attr.ns"/>
+    </optional>
+  </define>
+  <define name="epub.prefix.attr">
+    <attribute name="prefix">
+      <ref name="datatype.prefixdecl"/>
+    </attribute>
+  </define>
+  <define name="epub.prefix.attr.ns">
+    <attribute name="epub:prefix">
+      <ref name="datatype.prefixdecl"/>
+    </attribute>
+  </define>
+</grammar>

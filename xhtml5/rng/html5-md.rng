@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="html5.global.attrs" combine="interleave">
+    <ref name="html5.attrs.md"/>
+  </define>
+  <define name="html5.link.attlist" combine="interleave">
+    <ref name="html5.attrs.md"/>
+  </define>
+  <define name="html5.meta.attlist" combine="interleave">
+    <ref name="html5.attrs.md"/>
+  </define>
+  <define name="html5.a.attrs" combine="interleave">
+    <ref name="html5.attrs.md"/>
+  </define>
+  <define name="html5.area.attlist" combine="interleave">
+    <ref name="html5.attrs.md"/>
+  </define>
+  <define name="html5.attrs.md">
+    <interleave>
+      <optional>
+        <ref name="html5.md.attr.itemref"/>
+      </optional>
+      <optional>
+        <ref name="html5.md.attr.itemprop"/>
+      </optional>
+      <optional>
+        <ref name="html5.md.attr.itemscope"/>
+      </optional>
+      <optional>
+        <ref name="html5.md.attr.itemtype"/>
+      </optional>
+      <optional>
+        <ref name="html5.md.attr.itemid"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.attrs.md.no-itemprop">
+    <interleave>
+      <optional>
+        <ref name="html5.md.attr.itemref"/>
+      </optional>
+      <optional>
+        <ref name="html5.md.attr.itemscope"/>
+      </optional>
+      <optional>
+        <ref name="html5.md.attr.itemtype"/>
+      </optional>
+      <optional>
+        <ref name="html5.md.attr.itemid"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.md.attr.itemref">
+    <attribute name="itemref">
+      <ref name="datatype.IDREFS.lexical"/>
+    </attribute>
+  </define>
+  <define name="html5.md.attr.itemprop">
+    <attribute name="itemprop">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.md.attr.itemscope">
+    <attribute name="itemscope">
+      <choice>
+        <value>itemscope</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.md.attr.itemtype">
+    <attribute name="itemtype">
+      <list>
+        <oneOrMore>
+          <ref name="datatype.URI.absolute"/>
+        </oneOrMore>
+      </list>
+    </attribute>
+  </define>
+  <define name="html5.md.attr.itemid">
+    <attribute name="itemid">
+      <ref name="datatype.URI"/>
+    </attribute>
+  </define>
+  <define name="html5.phrasing.class" combine="choice">
+    <a:documentation>elements ######</a:documentation>
+    <choice>
+      <ref name="html5.md.link.elem"/>
+      <ref name="html5.md.meta.elem"/>
+    </choice>
+  </define>
+  <define name="html5.metadata.class" combine="choice">
+    <choice>
+      <ref name="html5.md.meta.elem"/>
+      <ref name="html5.md.link.elem"/>
+    </choice>
+  </define>
+  <define name="html5.md.link.elem">
+    <element name="link">
+      <ref name="html5.md.link.attlist"/>
+    </element>
+  </define>
+  <define name="html5.md.link.attlist">
+    <interleave>
+      <ref name="html5.md.attr.itemprop"/>
+      <ref name="html5.attrs.md.no-itemprop"/>
+      <ref name="html5.global.common.attrs"/>
+      <ref name="html5.global.xml.attrs"/>
+      <optional>
+        <ref name="html5.media.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.hreflang.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rel.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.type.mime.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.link.sizes.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.href.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.md.meta.elem">
+    <element name="meta">
+      <ref name="html5.md.meta.attlist"/>
+    </element>
+  </define>
+  <define name="html5.md.meta.attlist">
+    <interleave>
+      <ref name="html5.md.attr.itemprop"/>
+      <ref name="html5.meta.content.attr"/>
+      <ref name="html5.attrs.md.no-itemprop"/>
+      <ref name="html5.global.common.attrs"/>
+      <ref name="html5.global.xml.attrs"/>
+    </interleave>
+  </define>
+</grammar>

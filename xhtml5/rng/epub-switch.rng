@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns:epub="http://www.idpf.org/2007/ops" xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="html5.flow.class" combine="choice">
+    <ref name="epub.switch.flow"/>
+  </define>
+  <define name="html5.phrasing.class" combine="choice">
+    <ref name="epub.switch.phrasing"/>
+  </define>
+  <define name="epub.switch.flow">
+    <element name="epub:switch">
+      <ref name="epub.switch.attlist"/>
+      <oneOrMore>
+        <ref name="epub.switch.case.flow"/>
+      </oneOrMore>
+      <ref name="epub.switch.default.flow"/>
+    </element>
+  </define>
+  <define name="epub.switch.phrasing">
+    <element name="epub:switch">
+      <ref name="epub.switch.attlist"/>
+      <oneOrMore>
+        <ref name="epub.switch.case.phrasing"/>
+      </oneOrMore>
+      <ref name="epub.switch.default.phrasing"/>
+    </element>
+  </define>
+  <define name="epub.switch.case.flow">
+    <element name="epub:case">
+      <interleave>
+        <ref name="epub.case.attlist"/>
+        <ref name="epub.case.flow.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="epub.switch.case.phrasing">
+    <element name="epub:case">
+      <interleave>
+        <ref name="epub.case.attlist"/>
+        <ref name="epub.case.phrasing.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="epub.switch.default.flow">
+    <element name="epub:default">
+      <interleave>
+        <ref name="epub.default.attlist"/>
+        <ref name="epub.default.flow.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="epub.switch.default.phrasing">
+    <element name="epub:default">
+      <interleave>
+        <ref name="epub.default.attlist"/>
+        <ref name="epub.default.phrasing.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="epub.case.flow.content">
+    <ref name="epub.switch.any"/>
+  </define>
+  <define name="epub.case.phrasing.content">
+    <ref name="epub.switch.any"/>
+  </define>
+  <define name="epub.switch.any">
+    <zeroOrMore>
+      <choice>
+        <ref name="anyElement"/>
+        <text/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="epub.default.flow.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="epub.default.phrasing.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="epub.switch.attlist" combine="interleave">
+    <optional>
+      <ref name="html5.id.attr"/>
+    </optional>
+  </define>
+  <define name="epub.case.attlist" combine="interleave">
+    <interleave>
+      <optional>
+        <ref name="html5.id.attr"/>
+      </optional>
+      <ref name="epub.case.rn.attr"/>
+    </interleave>
+  </define>
+  <define name="epub.default.attlist" combine="interleave">
+    <optional>
+      <ref name="html5.id.attr"/>
+    </optional>
+  </define>
+  <define name="epub.case.rn.attr">
+    <attribute name="required-namespace">
+      <ref name="datatype.URI"/>
+    </attribute>
+  </define>
+  <define name="anyElement">
+    <element>
+      <anyName/>
+      <zeroOrMore>
+        <choice>
+          <attribute>
+            <anyName/>
+          </attribute>
+          <text/>
+          <ref name="anyElement"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+</grammar>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns:ssml="http://www.w3.org/2001/10/synthesis" xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="html5.global.common.attrs" combine="interleave">
+    <interleave>
+      <optional>
+        <ref name="epub.ssml.ph.attr"/>
+      </optional>
+      <optional>
+        <ref name="epub.ssml.alphabet.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <!-- TODO determine injection in SVG -->
+  <define name="epub.ssml.ph.attr">
+    <attribute name="ssml:ph">
+      <ref name="datatype.ssml.PhoneticExpression"/>
+    </attribute>
+  </define>
+  <define name="epub.ssml.alphabet.attr">
+    <attribute name="ssml:alphabet">
+      <ref name="datatype.ssml.PhoneticAlphabet"/>
+    </attribute>
+  </define>
+</grammar>

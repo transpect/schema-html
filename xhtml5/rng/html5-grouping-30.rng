@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="">
+  <define name="html5.flow.class" combine="choice">
+    <ref name="html5.grouping.class"/>
+  </define>
+  <define name="html5.grouping.class" combine="choice">
+    <choice>
+      <ref name="html5.p"/>
+      <ref name="html5.hr"/>
+      <ref name="html5.pre"/>
+      <ref name="html5.blockquote"/>
+      <ref name="html5.ul"/>
+      <ref name="html5.ol"/>
+      <ref name="html5.dl"/>
+      <ref name="html5.div"/>
+      <ref name="html5.figure"/>
+      <ref name="html5.table"/>
+    </choice>
+  </define>
+  <define name="html5.grouping.attrs" combine="interleave">
+    <ref name="html5.global.attrs"/>
+  </define>
+  <define name="html5.p">
+    <element name="p">
+      <interleave>
+        <ref name="html5.p.attlist"/>
+        <ref name="html5.p.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.p.attlist" combine="interleave">
+    <ref name="html5.grouping.attrs"/>
+  </define>
+  <define name="html5.p.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.hr">
+    <element name="hr">
+      <ref name="html5.hr.attlist"/>
+    </element>
+  </define>
+  <define name="html5.hr.attlist">
+    <ref name="html5.grouping.attrs"/>
+  </define>
+  <define name="html5.pre">
+    <element name="pre">
+      <interleave>
+        <ref name="html5.pre.attlist"/>
+        <ref name="html5.pre.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.pre.attlist">
+    <ref name="html5.grouping.attrs"/>
+  </define>
+  <define name="html5.pre.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.blockquote">
+    <element name="blockquote">
+      <interleave>
+        <ref name="html5.blockquote.attlist"/>
+        <ref name="html5.blockquote.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.blockquote.attlist">
+    <interleave>
+      <ref name="html5.grouping.attrs"/>
+      <optional>
+        <ref name="html5.cite.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.blockquote.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.ul">
+    <element name="ul">
+      <interleave>
+        <ref name="html5.ul.attlist"/>
+        <ref name="html5.ul.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.ul.attlist">
+    <ref name="html5.grouping.attrs"/>
+  </define>
+  <define name="html5.ul.content">
+    <zeroOrMore>
+      <ref name="html5.li"/>
+    </zeroOrMore>
+  </define>
+  <define name="html5.li">
+    <element name="li">
+      <interleave>
+        <ref name="html5.li.attlist"/>
+        <ref name="html5.li.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.li.attlist">
+    <ref name="html5.global.attrs"/>
+  </define>
+  <define name="html5.li.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.ol">
+    <element name="ol">
+      <interleave>
+        <ref name="html5.ol.attlist"/>
+        <ref name="html5.ol.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.ol.attlist">
+    <interleave>
+      <ref name="html5.grouping.attrs"/>
+      <optional>
+        <ref name="html5.ol.start.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.ol.reversed.attr"/>
+      </optional>
+      <optional>
+        <ref name="ol.type.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.ol.start.attr">
+    <attribute name="start">
+      <ref name="datatype.integer"/>
+    </attribute>
+  </define>
+  <define name="html5.ol.reversed.attr">
+    <attribute name="reversed">
+      <choice>
+        <value>reversed</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="ol.type.attr">
+    <attribute name="type">
+      <choice>
+        <value>1</value>
+        <value>a</value>
+        <value>A</value>
+        <value>i</value>
+        <value>I</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.ol.content">
+    <zeroOrMore>
+      <ref name="html5.oli"/>
+    </zeroOrMore>
+  </define>
+  <define name="html5.oli">
+    <element name="li">
+      <interleave>
+        <ref name="html5.oli.attlist"/>
+        <ref name="html5.oli.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.oli.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <optional>
+        <ref name="html5.oli.attrs.value"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.oli.attrs.value">
+    <attribute name="value">
+      <ref name="datatype.integer"/>
+    </attribute>
+  </define>
+  <define name="html5.oli.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.dl">
+    <element name="dl">
+      <interleave>
+        <ref name="html5.dl.attlist"/>
+        <ref name="html5.dl.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.dl.attlist">
+    <ref name="html5.grouping.attrs"/>
+  </define>
+  <define name="html5.dl.content">
+    <zeroOrMore>
+      <oneOrMore>
+        <ref name="html5.dt"/>
+      </oneOrMore>
+      <oneOrMore>
+        <ref name="html5.dd"/>
+      </oneOrMore>
+    </zeroOrMore>
+  </define>
+  <define name="html5.dt">
+    <element name="dt">
+      <interleave>
+        <ref name="html5.dt.attlist"/>
+        <ref name="html5.dt.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.dt.attlist">
+    <ref name="html5.global.attrs"/>
+  </define>
+  <define name="html5.dt.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.dd">
+    <element name="dd">
+      <interleave>
+        <ref name="html5.dd.attlist"/>
+        <ref name="html5.dd.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.dd.phrasing">
+    <element name="dd">
+      <interleave>
+        <ref name="html5.dd.phrasing.content"/>
+        <ref name="html5.dd.attlist"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.dd.attlist">
+    <ref name="html5.global.attrs"/>
+  </define>
+  <define name="html5.dd.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.dd.phrasing.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.div">
+    <element name="div">
+      <interleave>
+        <ref name="html5.div.attlist"/>
+        <ref name="html5.div.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.div.attlist">
+    <ref name="html5.grouping.attrs"/>
+  </define>
+  <define name="html5.div.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.figure">
+    <element name="figure">
+      <interleave>
+        <ref name="html5.figure.attlist"/>
+        <ref name="html5.figure.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.figure.attlist">
+    <ref name="html5.grouping.attrs"/>
+  </define>
+  <define name="html5.figure.content">
+    <choice>
+      <group>
+        <ref name="html5.figcaption"/>
+        <ref name="html5.flow.model"/>
+      </group>
+      <group>
+        <ref name="html5.flow.model"/>
+        <optional>
+          <ref name="html5.figcaption"/>
+        </optional>
+      </group>
+    </choice>
+  </define>
+  <define name="html5.figcaption">
+    <element name="figcaption">
+      <interleave>
+        <ref name="html5.figcaption.attlist"/>
+        <ref name="html5.figcaption.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.figcaption.attlist">
+    <ref name="html5.global.attrs"/>
+  </define>
+  <define name="html5.figcaption.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.table">
+    <element name="table">
+      <interleave>
+        <ref name="table.attlist"/>
+        <ref name="table.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="table.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.grouping.attrs"/>
+      <optional>
+        <ref name="html5.table.border.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.table.border.attr">
+    <attribute name="border">
+      <choice>
+        <value>1</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="table.content">
+    <optional>
+      <ref name="html5.caption"/>
+    </optional>
+    <zeroOrMore>
+      <ref name="html5.colgroup"/>
+    </zeroOrMore>
+    <optional>
+      <ref name="html5.thead"/>
+    </optional>
+    <choice>
+      <group>
+        <ref name="html5.tfoot"/>
+        <choice>
+          <zeroOrMore>
+            <ref name="html5.tbody"/>
+          </zeroOrMore>
+          <oneOrMore>
+            <ref name="html5.tr"/>
+          </oneOrMore>
+        </choice>
+      </group>
+      <group>
+        <choice>
+          <zeroOrMore>
+            <ref name="html5.tbody"/>
+          </zeroOrMore>
+          <oneOrMore>
+            <ref name="html5.tr"/>
+          </oneOrMore>
+        </choice>
+        <optional>
+          <ref name="html5.tfoot"/>
+        </optional>
+      </group>
+    </choice>
+  </define>
+  <define name="html5.caption">
+    <element name="caption">
+      <interleave>
+        <ref name="html5.caption.attlist"/>
+        <ref name="html5.caption.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.caption.attlist" combine="interleave">
+    <ref name="html5.global.attrs"/>
+  </define>
+  <define name="html5.caption.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.colgroup">
+    <element name="colgroup">
+      <interleave>
+        <ref name="html5.colgroup.attlist"/>
+        <ref name="html5.colgroup.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.colgroup.attlist" combine="interleave">
+    <ref name="html5.global.attrs"/>
+  </define>
+  <define name="html5.colgroup.content">
+    <choice>
+      <zeroOrMore>
+        <ref name="html5.col"/>
+      </zeroOrMore>
+      <optional>
+        <ref name="html5.colspan.col.span.attr"/>
+      </optional>
+    </choice>
+  </define>
+  <define name="html5.col">
+    <element name="col">
+      <ref name="html5.col.attlist"/>
+    </element>
+  </define>
+  <define name="html5.col.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <optional>
+        <ref name="html5.colspan.col.span.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.thead">
+    <element name="thead">
+      <interleave>
+        <ref name="html5.thead.attlist"/>
+        <ref name="html5.thead.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.thead.attlist" combine="interleave">
+    <ref name="html5.grouping.attrs"/>
+  </define>
+  <define name="html5.thead.content">
+    <zeroOrMore>
+      <ref name="html5.tr"/>
+    </zeroOrMore>
+  </define>
+  <define name="html5.tfoot">
+    <element name="tfoot">
+      <interleave>
+        <ref name="html5.tfoot.attlist"/>
+        <ref name="html5.tfoot.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.tfoot.attlist" combine="interleave">
+    <ref name="html5.grouping.attrs"/>
+  </define>
+  <define name="html5.tfoot.content">
+    <zeroOrMore>
+      <ref name="html5.tr"/>
+    </zeroOrMore>
+  </define>
+  <define name="html5.tbody">
+    <element name="tbody">
+      <interleave>
+        <ref name="html5.tbody.attlist"/>
+        <ref name="html5.tbody.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.tbody.attlist" combine="interleave">
+    <ref name="html5.grouping.attrs"/>
+  </define>
+  <define name="html5.tbody.content">
+    <zeroOrMore>
+      <ref name="html5.tr"/>
+    </zeroOrMore>
+  </define>
+  <define name="html5.tr">
+    <element name="tr">
+      <interleave>
+        <ref name="html5.tr.attlist"/>
+        <ref name="html5.tr.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.tr.attlist" combine="interleave">
+    <ref name="html5.grouping.attrs"/>
+  </define>
+  <define name="html5.tr.content">
+    <zeroOrMore>
+      <choice>
+        <ref name="html5.td"/>
+        <ref name="html5.th"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="html5.td">
+    <element name="td">
+      <interleave>
+        <ref name="html5.td.attlist"/>
+        <ref name="html5.td.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.td.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <optional>
+        <ref name="html5.table.colspan.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.table.rowspan.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.table.headers.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.td.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.th">
+    <element name="th">
+      <interleave>
+        <ref name="html5.th.content"/>
+        <ref name="html5.th.attlist"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.th.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <optional>
+        <ref name="html5.table.colspan.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.table.rowspan.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.table.scope.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.table.headers.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.th.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.colspan.col.span.attr">
+    <attribute name="span">
+      <ref name="datatype.positive.integer"/>
+    </attribute>
+  </define>
+  <define name="html5.table.colspan.attr">
+    <attribute name="colspan">
+      <ref name="datatype.positive.integer"/>
+    </attribute>
+  </define>
+  <define name="html5.table.rowspan.attr">
+    <attribute name="rowspan">
+      <ref name="datatype.non-negative.integer"/>
+    </attribute>
+  </define>
+  <define name="html5.table.headers.attr">
+    <attribute name="headers">
+      <ref name="datatype.IDREFS"/>
+    </attribute>
+  </define>
+  <define name="html5.table.scope.attr">
+    <attribute name="scope">
+      <choice>
+        <value>row</value>
+        <value>col</value>
+        <value>rowgroup</value>
+        <value>colgroup</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.table.abbr.attr">
+    <attribute name="abbr">
+      <data type="string"/>
+    </attribute>
+  </define>
+</grammar>

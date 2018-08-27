@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:epub="http://www.idpf.org/2007/ops" xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="html5.metadata.class" combine="choice">
+    <ref name="epub.trigger"/>
+  </define>
+  <define name="html5.flow.class" combine="choice">
+    <ref name="epub.trigger"/>
+  </define>
+  <define name="epub.trigger">
+    <element name="epub:trigger">
+      <interleave>
+        <ref name="epub.trigger.attlist"/>
+        <ref name="epub.trigger.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="epub.trigger.attlist">
+    <interleave>
+      <optional>
+        <ref name="html5.id.attr"/>
+      </optional>
+      <ref name="epub.trigger.action.attr"/>
+      <ref name="epub.trigger.ref.attr"/>
+      <ref name="xml.events.event.attr"/>
+      <ref name="xml.events.observer.attr"/>
+      <optional>
+        <ref name="xml.events.defaultAction.attr"/>
+      </optional>
+      <optional>
+        <ref name="xml.events.phase.attr"/>
+      </optional>
+      <optional>
+        <ref name="xml.events.propagate.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="epub.trigger.action.attr">
+    <attribute name="action">
+      <choice>
+        <value>show</value>
+        <value>hide</value>
+        <value>play</value>
+        <value>pause</value>
+        <value>resume</value>
+        <value>mute</value>
+        <value>unmute</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="epub.trigger.ref.attr">
+    <attribute name="ref">
+      <ref name="datatype.IDREF"/>
+    </attribute>
+  </define>
+  <define name="xml.events.event.attr">
+    <attribute name="ev:event">
+      <ref name="datatype.NMTOKEN"/>
+    </attribute>
+  </define>
+  <define name="xml.events.observer.attr">
+    <attribute name="ev:observer">
+      <ref name="datatype.IDREF"/>
+    </attribute>
+  </define>
+  <define name="xml.events.defaultAction.attr">
+    <attribute name="ev:defaultAction">
+      <choice>
+        <value>cancel</value>
+        <value>perform</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="xml.events.phase.attr">
+    <attribute name="ev:phase">
+      <choice>
+        <value>capture</value>
+        <value>default</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="xml.events.propagate.attr">
+    <attribute name="ev:propagate">
+      <choice>
+        <value>stop</value>
+        <value>continue</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="epub.trigger.content">
+    <empty/>
+  </define>
+</grammar>

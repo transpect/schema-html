@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="html5.phrasing.class" combine="choice">
+    <ref name="math"/>
+  </define>
+  <define name="html5.flow.class" combine="choice">
+    <ref name="math"/>
+  </define>
+  <define name="math">
+    <externalRef href="epub-mathml3-30.rng"/>
+  </define>
+</grammar>

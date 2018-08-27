@@ -1,0 +1,940 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="">
+  <define name="html5.flow.class" combine="choice">
+    <ref name="html5.embed.flow.class"/>
+  </define>
+  <define name="html5.phrasing.class" combine="choice">
+    <ref name="html5.embed.phrasing.class"/>
+  </define>
+  <define name="html5.embed.flow.class" combine="choice">
+    <choice>
+      <ref name="html5.audio.flow"/>
+      <ref name="html5.video.flow"/>
+      <ref name="html5.object.flow"/>
+      <ref name="html5.canvas.flow"/>
+      <ref name="html5.map.flow"/>
+      <ref name="html5.area"/>
+      <ref name="html5.iframe"/>
+      <ref name="html5.img"/>
+      <ref name="html5.embed"/>
+    </choice>
+  </define>
+  <define name="html5.embed.phrasing.class" combine="choice">
+    <choice>
+      <ref name="html5.audio.phrasing"/>
+      <ref name="html5.video.phrasing"/>
+      <ref name="html5.object.phrasing"/>
+      <ref name="html5.canvas.phrasing"/>
+      <ref name="html5.map.phrasing"/>
+      <ref name="html5.area"/>
+      <ref name="html5.iframe"/>
+      <ref name="html5.img"/>
+      <ref name="html5.embed"/>
+    </choice>
+  </define>
+  <define name="html5.video.flow">
+    <element name="video">
+      <interleave>
+        <ref name="html5.video.attlist"/>
+        <ref name="html5.video.flow.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.video.phrasing">
+    <element name="video">
+      <interleave>
+        <ref name="html5.video.attlist"/>
+        <ref name="html5.video.phrasing.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.video.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.av.common.attrs"/>
+      <optional>
+        <ref name="html5.video.poster.attr"/>
+      </optional>
+      <ref name="html5.dimension.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.video.poster.attr">
+    <attribute name="poster">
+      <ref name="datatype.html5.URL.spaces"/>
+    </attribute>
+  </define>
+  <define name="html5.video.flow.content">
+    <ref name="html5.av.source"/>
+    <zeroOrMore>
+      <ref name="html5.track"/>
+    </zeroOrMore>
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.video.phrasing.content">
+    <ref name="html5.av.source"/>
+    <zeroOrMore>
+      <ref name="html5.track"/>
+    </zeroOrMore>
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.audio.flow">
+    <element name="audio">
+      <interleave>
+        <ref name="html5.audio.attlist"/>
+        <ref name="html5.audio.flow.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.audio.phrasing">
+    <element name="audio">
+      <interleave>
+        <ref name="html5.audio.attlist"/>
+        <ref name="html5.audio.phrasing.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.audio.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.av.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.audio.flow.content">
+    <ref name="html5.av.source"/>
+    <zeroOrMore>
+      <ref name="html5.track"/>
+    </zeroOrMore>
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.audio.phrasing.content">
+    <ref name="html5.av.source"/>
+    <zeroOrMore>
+      <ref name="html5.track"/>
+    </zeroOrMore>
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.av.source">
+    <choice>
+      <ref name="html5.src.attr"/>
+      <zeroOrMore>
+        <ref name="html5.source"/>
+      </zeroOrMore>
+    </choice>
+  </define>
+  <define name="html5.av.common.attrs">
+    <interleave>
+      <optional>
+        <ref name="html5.av.autoplay.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.av.preload.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.av.controls.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.av.loop.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.av.mediagroup.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.av.muted.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.track">
+    <element name="track">
+      <ref name="html5.track.attlist"/>
+    </element>
+  </define>
+  <define name="html5.track.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <optional>
+        <ref name="html5.track.kind.attr"/>
+      </optional>
+      <ref name="html5.src.attr"/>
+      <optional>
+        <ref name="html5.track.default.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.track.srclang.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.track.label.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.track.kind.attr">
+    <attribute name="kind">
+      <choice>
+        <value>subtitles</value>
+        <value>captions</value>
+        <value>descriptions</value>
+        <value>chapters</value>
+        <value>metadata</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.track.srclang.attr">
+    <attribute name="srclang">
+      <ref name="datatype.languagecode"/>
+    </attribute>
+  </define>
+  <define name="html5.track.label.attr">
+    <attribute name="label">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.track.default.attr">
+    <attribute name="default">
+      <choice>
+        <value>default</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.av.autoplay.attr">
+    <attribute name="autoplay">
+      <choice>
+        <value>autoplay</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.av.preload.attr">
+    <attribute name="preload">
+      <choice>
+        <value>none</value>
+        <value>metadata</value>
+        <value>auto</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.av.controls.attr">
+    <attribute name="controls">
+      <choice>
+        <value>controls</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.av.loop.attr">
+    <attribute name="loop">
+      <choice>
+        <value>loop</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.av.mediagroup.attr">
+    <attribute name="mediagroup">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.av.muted.attr">
+    <attribute name="muted">
+      <choice>
+        <value>muted</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.source">
+    <element name="source">
+      <ref name="html5.source.attlist"/>
+    </element>
+  </define>
+  <define name="html5.source.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.src.attr"/>
+      <optional>
+        <ref name="html5.type.mime.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.media.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.img">
+    <element name="img">
+      <ref name="html5.img.attlist"/>
+    </element>
+  </define>
+  <define name="html5.img.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.dimension.attrs"/>
+      <ref name="html5.src.attr"/>
+      <optional>
+        <ref name="html5.alt.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.usemap.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.img.ismap.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.img.ismap.attr">
+    <attribute name="ismap">
+      <choice>
+        <value>ismap</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.embed">
+    <element name="embed">
+      <ref name="html5.embed.attlist"/>
+    </element>
+  </define>
+  <define name="html5.embed.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <optional>
+        <ref name="html5.src.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.type.mime.attr"/>
+      </optional>
+      <ref name="html5.dimension.attrs"/>
+      <zeroOrMore>
+        <ref name="html5.embed.attrs.other"/>
+      </zeroOrMore>
+    </interleave>
+  </define>
+  <define name="html5.embed.attrs.other">
+    <empty/>
+  </define>
+  <!-- TODO		 -->
+  <define name="html5.object.flow">
+    <element name="object">
+      <interleave>
+        <ref name="html5.object.flow.content"/>
+        <ref name="html5.object.attlist"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.object.phrasing">
+    <element name="object">
+      <interleave>
+        <ref name="html5.object.phrasing.content"/>
+        <ref name="html5.object.attlist"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.object.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <choice>
+        <interleave>
+          <ref name="html5.object.data.attr"/>
+          <optional>
+            <ref name="html5.type.mime.attr"/>
+          </optional>
+        </interleave>
+        <ref name="html5.type.mime.attr"/>
+      </choice>
+      <ref name="html5.dimension.attrs"/>
+      <optional>
+        <ref name="html5.usemap.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.name.context.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.form.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.object.data.attr">
+    <attribute name="data">
+      <ref name="datatype.html5.URL.spaces"/>
+    </attribute>
+  </define>
+  <define name="html5.object.typemustmatch.attr">
+    <attribute name="typemustmatch">
+      <choice>
+        <value>typemustmatch</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.object.flow.content">
+    <zeroOrMore>
+      <ref name="html5.param"/>
+    </zeroOrMore>
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.object.phrasing.content">
+    <zeroOrMore>
+      <ref name="html5.param"/>
+    </zeroOrMore>
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.param">
+    <element name="param">
+      <ref name="html5.param.attlist"/>
+    </element>
+  </define>
+  <define name="html5.param.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.param.name.attr"/>
+      <ref name="html5.param.value.attr"/>
+    </interleave>
+  </define>
+  <define name="html5.param.name.attr">
+    <attribute name="name">
+      <data type="string"/>
+    </attribute>
+  </define>
+  <define name="html5.param.value.attr">
+    <attribute name="value">
+      <data type="string"/>
+    </attribute>
+  </define>
+  <define name="html5.canvas.flow">
+    <element name="canvas">
+      <interleave>
+        <ref name="html5.canvas.attlist"/>
+        <ref name="html5.canvas.flow.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.canvas.phrasing">
+    <element name="canvas">
+      <interleave>
+        <ref name="html5.canvas.attlist"/>
+        <ref name="html5.canvas.phrasing.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.canvas.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.dimension.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.canvas.flow.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.canvas.phrasing.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.map.flow">
+    <element name="map">
+      <interleave>
+        <ref name="html5.map.flow.content"/>
+        <ref name="html5.map.attlist"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.map.phrasing">
+    <element name="map">
+      <interleave>
+        <ref name="html5.map.phrasing.content"/>
+        <ref name="html5.map.attlist"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.map.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.name.id.attr"/>
+    </interleave>
+  </define>
+  <define name="html5.map.flow.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.map.phrasing.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.area">
+    <element name="area">
+      <ref name="html5.area.attlist"/>
+    </element>
+  </define>
+  <define name="html5.area.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.common.attrs"/>
+      <ref name="html5.global.xml.attrs"/>
+      <optional>
+        <interleave>
+          <ref name="html5.alt.attr"/>
+          <ref name="html5.href.attr"/>
+        </interleave>
+      </optional>
+      <optional>
+        <ref name="html5.target.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rel.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.media.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.hreflang.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.type.mime.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.area.shape.attrs"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.area.shape.attrs">
+    <choice>
+      <interleave>
+        <optional>
+          <ref name="html5.area.shape.rect.attr"/>
+        </optional>
+        <ref name="html5.area.coords.rect.attr"/>
+      </interleave>
+      <interleave>
+        <ref name="html5.area.shape.circle.attr"/>
+        <ref name="html5.area.coords.circle.attr"/>
+      </interleave>
+      <interleave>
+        <ref name="html5.area.shape.poly.attr"/>
+        <ref name="html5.area.coords.poly.attr"/>
+      </interleave>
+      <ref name="html5.area.shape.default.attr"/>
+    </choice>
+  </define>
+  <define name="html5.area.shape.rect.attr">
+    <attribute name="shape">
+      <value>rect</value>
+    </attribute>
+  </define>
+  <define name="html5.area.coords.rect.attr">
+    <attribute name="coords">
+      <ref name="datatype.html5.coords.rectangle"/>
+    </attribute>
+  </define>
+  <define name="html5.area.shape.circle.attr">
+    <attribute name="shape">
+      <value>circle</value>
+    </attribute>
+  </define>
+  <define name="html5.area.coords.circle.attr">
+    <attribute name="coords">
+      <ref name="datatype.html5.coords.circle"/>
+    </attribute>
+  </define>
+  <define name="html5.area.shape.poly.attr">
+    <attribute name="shape">
+      <value>poly</value>
+    </attribute>
+  </define>
+  <define name="html5.area.coords.poly.attr">
+    <attribute name="coords">
+      <ref name="datatype.html5.coords.poly"/>
+    </attribute>
+  </define>
+  <define name="html5.area.shape.default.attr">
+    <attribute name="shape">
+      <value>default</value>
+    </attribute>
+  </define>
+  <define name="html5.iframe">
+    <element name="iframe">
+      <interleave>
+        <ref name="html5.iframe.attlist"/>
+        <ref name="html5.iframe.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.iframe.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <optional>
+        <ref name="html5.src.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.name.context.attr"/>
+      </optional>
+      <ref name="html5.dimension.attrs"/>
+      <optional>
+        <ref name="html5.iframe.sandbox.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.iframe.seamless.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.iframe.srcdoc.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.iframe.seamless.attr">
+    <attribute name="seamless">
+      <choice>
+        <value>seamless</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.iframe.sandbox.attr">
+    <attribute name="sandbox">
+      <choice>
+        <list>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+        </list>
+        <list>
+          <optional>
+            <value>allow-scripts</value>
+          </optional>
+          <optional>
+            <value>allow-forms</value>
+          </optional>
+          <optional>
+            <value>allow-same-origin</value>
+          </optional>
+          <optional>
+            <value>allow-top-navigation</value>
+          </optional>
+        </list>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.iframe.srcdoc.attr">
+    <attribute name="srcdoc">
+      <ref name="datatype.html5.iframe.srcdoc.xml"/>
+    </attribute>
+  </define>
+  <define name="html5.iframe.content">
+    <ref name="html5.iframe.content.xml"/>
+  </define>
+  <define name="html5.iframe.content.html">
+    <ref name="datatype.text"/>
+  </define>
+  <define name="html5.iframe.content.xml">
+    <empty/>
+  </define>
+</grammar>

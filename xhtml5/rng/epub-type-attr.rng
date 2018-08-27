@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns:epub="http://www.idpf.org/2007/ops" xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="html5.global.xml.attrs" combine="interleave">
+    <optional>
+      <ref name="epub.type.attr"/>
+    </optional>
+  </define>
+  <define name="epub.type.attr">
+    <attribute name="epub:type">
+      <ref name="datatype.properties"/>
+    </attribute>
+  </define>
+</grammar>

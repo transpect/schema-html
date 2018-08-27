@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <define name="html5.flow.class" combine="choice">
+    <ref name="html5.interactive.flow.class"/>
+  </define>
+  <define name="html5.phrasing.class" combine="choice">
+    <ref name="html5.interactive.phrasing.class"/>
+  </define>
+  <define name="html5.metadata.class" combine="choice">
+    <ref name="html5.interactive.metadata.class"/>
+  </define>
+  <define name="html5.interactive.phrasing.class" combine="choice">
+    <choice>
+      <ref name="html5.command.class"/>
+      <ref name="html5.progress"/>
+    </choice>
+  </define>
+  <define name="html5.interactive.flow.class" combine="choice">
+    <choice>
+      <ref name="html5.menu"/>
+      <ref name="html5.details"/>
+    </choice>
+  </define>
+  <define name="html5.interactive.metadata.class" combine="choice">
+    <ref name="html5.command.class"/>
+  </define>
+  <define name="html5.command.class" combine="choice">
+    <choice>
+      <ref name="html5.command.command"/>
+      <ref name="html5.command.radio"/>
+      <ref name="html5.command.checkbox"/>
+    </choice>
+  </define>
+  <define name="html5.html.attlist" combine="interleave">
+    <optional>
+      <ref name="html5.interactive.manifest.attr"/>
+    </optional>
+  </define>
+  <define name="html5.global.common.attrs" combine="interleave">
+    <ref name="html5.interactive.global.attrs"/>
+  </define>
+  <define name="html5.interactive.global.attrs" combine="interleave">
+    <interleave>
+      <optional>
+        <ref name="html5.interactive.contextmenu.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.interactive.contenteditable.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.interactive.draggable.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.interactive.hidden.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.interactive.spellcheck.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.interactive.accesskey.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.interactive.tabindex.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.interactive.dropzone.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.progress">
+    <element name="progress">
+      <interleave>
+        <ref name="html5.progress.attlist"/>
+        <ref name="html5.progress.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.progress.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.phrasing.attrs"/>
+      <optional>
+        <ref name="html5.progress.value.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.progress.max.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.progress.value.attr">
+    <attribute name="value">
+      <ref name="datatype.float.non-negative"/>
+    </attribute>
+  </define>
+  <define name="html5.progress.max.attr">
+    <attribute name="max">
+      <ref name="datatype.float.positive"/>
+    </attribute>
+  </define>
+  <define name="html5.progress.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.command.command">
+    <element name="command">
+      <ref name="html5.command.command.attlist"/>
+    </element>
+  </define>
+  <define name="html5.command.command.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.phrasing.attrs"/>
+      <optional>
+        <ref name="html5.command.command.type.attr"/>
+      </optional>
+      <ref name="html5.common-command.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.command.command.type.attr">
+    <attribute name="type">
+      <value>command</value>
+    </attribute>
+  </define>
+  <define name="html5.command.checked.attr">
+    <attribute name="checked">
+      <choice>
+        <value>checked</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.command.radio">
+    <element name="command">
+      <ref name="html5.command.radio.attlist"/>
+    </element>
+  </define>
+  <define name="html5.command.radio.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.phrasing.attrs"/>
+      <interleave>
+        <ref name="html5.command.radio.type.attr"/>
+        <ref name="html5.command.radio.radiogroup.attr"/>
+        <optional>
+          <ref name="html5.command.checked.attr"/>
+        </optional>
+      </interleave>
+      <ref name="html5.common-command.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.command.radio.type.attr">
+    <attribute name="type">
+      <value>radio</value>
+    </attribute>
+  </define>
+  <define name="html5.command.radio.radiogroup.attr">
+    <attribute name="radiogroup">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.command.checkbox">
+    <element name="command">
+      <ref name="html5.command.checkbox.attlist"/>
+    </element>
+  </define>
+  <define name="html5.command.checkbox.attlist">
+    <interleave>
+      <ref name="html5.phrasing.attrs"/>
+      <interleave>
+        <ref name="html5.command.checkbox.type.attr"/>
+        <optional>
+          <ref name="html5.command.checked.attr"/>
+        </optional>
+      </interleave>
+      <ref name="html5.common-command.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.command.checkbox.type.attr">
+    <attribute name="type">
+      <value>checkbox</value>
+    </attribute>
+  </define>
+  <define name="html5.common-command.attrs" combine="interleave">
+    <interleave>
+      <optional>
+        <ref name="html5.command.label.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.command.icon.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.command.disabled.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.command.label.attr">
+    <attribute name="label">
+      <data type="string" datatypeLibrary=""/>
+    </attribute>
+  </define>
+  <define name="html5.command.icon.attr">
+    <attribute name="icon">
+      <ref name="datatype.html5.URL.spaces"/>
+    </attribute>
+  </define>
+  <define name="html5.command.disabled.attr">
+    <attribute name="disabled">
+      <choice>
+        <value>disabled</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.menu">
+    <element name="menu">
+      <interleave>
+        <ref name="html5.menu.attlist"/>
+        <ref name="html5.menu.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.menu.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <optional>
+        <ref name="html5.menu.type.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.menu.label.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.menu.type.attr">
+    <attribute name="type">
+      <choice>
+        <value>toolbar</value>
+        <value>context</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.menu.label.attr">
+    <attribute name="label">
+      <data type="string" datatypeLibrary=""/>
+    </attribute>
+  </define>
+  <define name="html5.menu.content">
+    <choice>
+      <zeroOrMore>
+        <ref name="html5.mli"/>
+      </zeroOrMore>
+      <ref name="html5.flow.model"/>
+    </choice>
+  </define>
+  <define name="html5.mli">
+    <element name="li">
+      <interleave>
+        <ref name="html5.mli.attlist"/>
+        <ref name="html5.mli.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.mli.attlist" combine="interleave">
+    <ref name="html5.global.attrs"/>
+  </define>
+  <define name="html5.mli.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.details">
+    <element name="details">
+      <interleave>
+        <ref name="html5.details.attlist"/>
+        <ref name="html5.details.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.details.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <optional>
+        <ref name="html5.details.open.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.details.open.attr">
+    <attribute name="open">
+      <choice>
+        <value>open</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.details.content">
+    <optional>
+      <ref name="html5.summary"/>
+    </optional>
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.summary">
+    <element name="summary">
+      <interleave>
+        <ref name="html5.summary.attlist"/>
+        <ref name="html5.summary.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.summary.attlist" combine="interleave">
+    <ref name="html5.global.attrs"/>
+  </define>
+  <define name="html5.summary.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.interactive.manifest.attr">
+    <attribute name="manifest">
+      <ref name="datatype.html5.URL.spaces"/>
+    </attribute>
+  </define>
+  <define name="html5.interactive.contextmenu.attr">
+    <attribute name="contextmenu">
+      <ref name="datatype.IDREF"/>
+    </attribute>
+  </define>
+  <define name="html5.interactive.contenteditable.attr">
+    <attribute name="contenteditable">
+      <choice>
+        <value>true</value>
+        <value>false</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.interactive.draggable.attr">
+    <attribute name="draggable">
+      <choice>
+        <value>true</value>
+        <value>false</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.interactive.hidden.attr">
+    <attribute name="hidden">
+      <choice>
+        <value>hidden</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.interactive.spellcheck.attr">
+    <attribute name="spellcheck">
+      <choice>
+        <value>true</value>
+        <value>false</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.interactive.accesskey.attr">
+    <attribute name="accesskey">
+      <ref name="datatype.html5.accesskey"/>
+    </attribute>
+  </define>
+  <define name="html5.interactive.tabindex.attr">
+    <attribute name="tabindex">
+      <ref name="datatype.integer"/>
+    </attribute>
+  </define>
+  <define name="html5.interactive.dropzone.attr">
+    <attribute name="dropzone">
+      <list>
+        <zeroOrMore>
+          <choice>
+            <data type="string">
+              <param name="pattern">[sS]:.+</param>
+            </data>
+            <data type="string">
+              <param name="pattern">[fF]:.+</param>
+            </data>
+          </choice>
+        </zeroOrMore>
+        <optional>
+          <choice>
+            <value>copy</value>
+            <value>move</value>
+            <value>link</value>
+          </choice>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <data type="string">
+              <param name="pattern">[sS]:.+</param>
+            </data>
+            <data type="string">
+              <param name="pattern">[fF]:.+</param>
+            </data>
+          </choice>
+        </zeroOrMore>
+      </list>
+    </attribute>
+  </define>
+</grammar>

@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="html5.global.common.attrs" combine="interleave">
+    <ref name="aria"/>
+  </define>
+  <define name="aria">
+    <interleave>
+      <optional>
+        <ref name="aria.role.attr"/>
+      </optional>
+      <ref name="aria.global"/>
+      <ref name="aria.widget.excl"/>
+      <ref name="aria.relationship.excl"/>
+      <optional>
+        <ref name="aria.describedat.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="aria.role.attr">
+    <attribute name="role">
+      <ref name="datatype.NMTOKENS"/>
+    </attribute>
+  </define>
+  <define name="aria.describedat.attr">
+    <attribute name="aria-describedat">
+      <ref name="datatype.html5.URL.spaces"/>
+    </attribute>
+  </define>
+  <!--
+    Global States and Properties
+    http://www.w3.org/WAI/PF/aria/states_and_properties#global_states
+  -->
+  <define name="aria.global">
+    <interleave>
+      <optional>
+        <ref name="aria.prop.atomic"/>
+      </optional>
+      <optional>
+        <ref name="aria.state.busy"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.controls"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.describedby"/>
+      </optional>
+      <optional>
+        <ref name="aria.state.disabled"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.dropeffect"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.flowto"/>
+      </optional>
+      <optional>
+        <ref name="aria.state.grabbed"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.haspopup"/>
+      </optional>
+      <optional>
+        <ref name="aria.state.hidden"/>
+      </optional>
+      <optional>
+        <ref name="aria.state.invalid"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.label"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.labelledby"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.live"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.owns"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.relevant"/>
+      </optional>
+    </interleave>
+  </define>
+  <!--
+    exclusive widget, not in global
+    http://www.w3.org/WAI/PF/aria/states_and_properties#attrs_widgets
+  -->
+  <define name="aria.widget.excl">
+    <interleave>
+      <optional>
+        <ref name="aria.prop.autocomplete"/>
+      </optional>
+      <optional>
+        <ref name="aria.state.checked"/>
+      </optional>
+      <optional>
+        <ref name="aria.state.expanded"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.level"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.multiline"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.multiselectable"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.orientation"/>
+      </optional>
+      <optional>
+        <ref name="aria.state.pressed"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.readonly"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.required"/>
+      </optional>
+      <optional>
+        <ref name="aria.state.selected"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.sort"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.valuemax"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.valuemin"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.valuenow"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.valuetext"/>
+      </optional>
+    </interleave>
+  </define>
+  <!--
+    exclusive relationship, not in global
+    http://www.w3.org/WAI/PF/aria/states_and_properties#attrs_relationships
+  -->
+  <define name="aria.relationship.excl">
+    <interleave>
+      <optional>
+        <ref name="aria.prop.activedescendant"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.posinset"/>
+      </optional>
+      <optional>
+        <ref name="aria.prop.setsize"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="aria.state.busy">
+    <attribute name="aria-busy">
+      <choice>
+        <value>true</value>
+        <value>false</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.state.checked">
+    <attribute name="aria-checked">
+      <choice>
+        <value>true</value>
+        <value>false</value>
+        <value>mixed</value>
+        <value>undefined</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.state.disabled">
+    <attribute name="aria-disabled">
+      <choice>
+        <value>true</value>
+        <value>false</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.state.expanded">
+    <attribute name="aria-expanded">
+      <choice>
+        <value>true</value>
+        <value>false</value>
+        <value>undefined</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.state.grabbed">
+    <attribute name="aria-grabbed">
+      <choice>
+        <value>true</value>
+        <value>false</value>
+        <value>undefined</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.state.hidden">
+    <attribute name="aria-hidden">
+      <choice>
+        <value>true</value>
+        <value>false</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.state.invalid">
+    <attribute name="aria-invalid">
+      <choice>
+        <value>true</value>
+        <value>false</value>
+        <value>grammar</value>
+        <value>spelling</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.state.pressed">
+    <attribute name="aria-pressed">
+      <choice>
+        <value>true</value>
+        <value>false</value>
+        <value>mixed</value>
+        <value>undefined</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.state.selected">
+    <attribute name="aria-selected">
+      <choice>
+        <value>true</value>
+        <value>false</value>
+        <value>undefined</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.prop.activedescendant">
+    <attribute name="aria-activedescendant">
+      <ref name="datatype.IDREF"/>
+    </attribute>
+  </define>
+  <define name="aria.prop.atomic">
+    <attribute name="aria-atomic">
+      <choice>
+        <value>true</value>
+        <value>false</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.prop.autocomplete">
+    <attribute name="aria-autocomplete">
+      <choice>
+        <value>inline</value>
+        <value>list</value>
+        <value>both</value>
+        <value>none</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.prop.controls">
+    <attribute name="aria-controls">
+      <ref name="datatype.IDREFS"/>
+    </attribute>
+  </define>
+  <define name="aria.prop.describedby">
+    <attribute name="aria-describedby">
+      <ref name="datatype.IDREFS"/>
+    </attribute>
+  </define>
+  <define name="aria.prop.dropeffect">
+    <attribute name="aria-dropeffect">
+      <choice>
+        <value>none</value>
+        <value>popup</value>
+        <value>execute</value>
+        <list>
+          <value>copy</value>
+          <optional>
+            <value>execute</value>
+          </optional>
+        </list>
+        <list>
+          <value>move</value>
+          <optional>
+            <value>execute</value>
+          </optional>
+        </list>
+        <list>
+          <value>reference</value>
+          <optional>
+            <value>execute</value>
+          </optional>
+        </list>
+        <list>
+          <value>execute</value>
+          <value>copy</value>
+        </list>
+        <list>
+          <value>execute</value>
+          <value>move</value>
+        </list>
+        <list>
+          <value>execute</value>
+          <value>reference</value>
+        </list>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.prop.flowto">
+    <attribute name="aria-flowto">
+      <ref name="datatype.IDREFS"/>
+    </attribute>
+  </define>
+  <define name="aria.prop.haspopup">
+    <attribute name="aria-haspopup">
+      <choice>
+        <value>true</value>
+        <value>false</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.prop.label">
+    <attribute name="aria-label">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="aria.prop.labelledby">
+    <attribute name="aria-labelledby">
+      <ref name="datatype.IDREFS"/>
+    </attribute>
+  </define>
+  <define name="aria.prop.level">
+    <attribute name="aria-level">
+      <ref name="datatype.positive.integer"/>
+    </attribute>
+  </define>
+  <define name="aria.prop.live">
+    <attribute name="aria-live">
+      <choice>
+        <value>off</value>
+        <value>polite</value>
+        <value>assertive</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.prop.multiline">
+    <attribute name="aria-multiline">
+      <choice>
+        <value>true</value>
+        <value>false</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.prop.multiselectable">
+    <attribute name="aria-multiselectable">
+      <choice>
+        <value>true</value>
+        <value>false</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.prop.orientation">
+    <attribute name="aria-orientation">
+      <choice>
+        <value>vertical</value>
+        <value>horizontal</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.prop.owns">
+    <attribute name="aria-owns">
+      <ref name="datatype.IDREFS"/>
+    </attribute>
+  </define>
+  <define name="aria.prop.posinset">
+    <attribute name="aria-posinset">
+      <ref name="datatype.positive.integer"/>
+    </attribute>
+  </define>
+  <define name="aria.prop.readonly">
+    <attribute name="aria-readonly">
+      <choice>
+        <value>true</value>
+        <value>false</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.prop.relevant">
+    <attribute name="aria-relevant">
+      <choice>
+        <value>all</value>
+        <list>
+          <value>additions</value>
+          <optional>
+            <value>removals</value>
+          </optional>
+          <optional>
+            <value>text</value>
+          </optional>
+        </list>
+        <list>
+          <value>additions</value>
+          <optional>
+            <value>text</value>
+          </optional>
+          <optional>
+            <value>removals</value>
+          </optional>
+        </list>
+        <list>
+          <value>removals</value>
+          <optional>
+            <value>additions</value>
+          </optional>
+          <optional>
+            <value>text</value>
+          </optional>
+        </list>
+        <list>
+          <value>removals</value>
+          <optional>
+            <value>text</value>
+          </optional>
+          <optional>
+            <value>additions</value>
+          </optional>
+        </list>
+        <list>
+          <value>text</value>
+          <optional>
+            <value>additions</value>
+          </optional>
+          <optional>
+            <value>removals</value>
+          </optional>
+        </list>
+        <list>
+          <value>text</value>
+          <optional>
+            <value>removals</value>
+          </optional>
+          <optional>
+            <value>additions</value>
+          </optional>
+        </list>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.prop.required">
+    <attribute name="aria-required">
+      <choice>
+        <value>true</value>
+        <value>false</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.prop.setsize">
+    <attribute name="aria-setsize">
+      <ref name="datatype.non-negative.integer"/>
+    </attribute>
+  </define>
+  <define name="aria.prop.sort">
+    <attribute name="aria-sort">
+      <choice>
+        <value>ascending </value>
+        <value>descending</value>
+        <value>none</value>
+        <value>other</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="aria.prop.valuemax">
+    <attribute name="aria-valuemax">
+      <ref name="datatype.float"/>
+    </attribute>
+  </define>
+  <define name="aria.prop.valuemin">
+    <attribute name="aria-valuemin">
+      <ref name="datatype.float"/>
+    </attribute>
+  </define>
+  <define name="aria.prop.valuenow">
+    <attribute name="aria-valuenow">
+      <ref name="datatype.float"/>
+    </attribute>
+  </define>
+  <define name="aria.prop.valuetext">
+    <attribute name="aria-valuetext">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="aria.roles">
+    <interleave>
+      <ref name="aria.widget.roles"/>
+      <ref name="aria.structure.roles"/>
+      <ref name="aria.landmark.roles"/>
+    </interleave>
+  </define>
+  <define name="aria.widget.roles">
+    <choice>
+      <value>alert</value>
+      <value>alertdialog</value>
+      <value>button</value>
+      <value>checkbox</value>
+      <value>dialog</value>
+      <value>gridcell</value>
+      <value>link</value>
+      <value>log</value>
+      <value>marquee</value>
+      <value>menuitem</value>
+      <value>menuitemcheckbox</value>
+      <value>menuitemradio</value>
+      <value>option</value>
+      <value>progressbar</value>
+      <value>radio</value>
+      <value>scrollbar</value>
+      <value>slider</value>
+      <value>spinbutton</value>
+      <value>status</value>
+      <value>tab</value>
+      <value>tabpanel</value>
+      <value>textbox</value>
+      <value>timer</value>
+      <value>tooltip</value>
+      <value>treeitem</value>
+      <value>combobox</value>
+      <value>grid</value>
+      <value>listbox</value>
+      <value>menu</value>
+      <value>menubar</value>
+      <value>radiogroup</value>
+      <value>tablist</value>
+      <value>tree</value>
+      <value>treegrid</value>
+    </choice>
+  </define>
+  <define name="aria.structure.roles">
+    <choice>
+      <value>article</value>
+      <value>columnheader</value>
+      <value>definition</value>
+      <value>directory</value>
+      <value>document</value>
+      <value>group</value>
+      <value>heading</value>
+      <value>img</value>
+      <value>list</value>
+      <value>listitem</value>
+      <value>math</value>
+      <value>note</value>
+      <value>presentation</value>
+      <value>region</value>
+      <value>row</value>
+      <value>rowheader</value>
+      <value>separator</value>
+      <value>toolbar</value>
+    </choice>
+  </define>
+  <define name="aria.landmark.roles">
+    <choice>
+      <value>application</value>
+      <value>banner</value>
+      <value>complementary</value>
+      <value>contentinfo</value>
+      <value>form</value>
+      <value>main</value>
+      <value>navigation</value>
+      <value>search</value>
+    </choice>
+  </define>
+  <define name="aria.abstract.roles">
+    <choice>
+      <value>command</value>
+      <value>composite</value>
+      <value>input</value>
+      <value>landmark</value>
+      <value>range</value>
+      <value>roletype</value>
+      <value>section</value>
+      <value>sectionhead</value>
+      <value>select</value>
+      <value>structure</value>
+      <value>widget</value>
+      <value>window</value>
+    </choice>
+  </define>
+</grammar>

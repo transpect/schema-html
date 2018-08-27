@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  $Id: epub-svg11-30.rnc 3093 2011-08-22 18:33:36Z markus.gylling@gmail.com $
+  Contributors: MURATA Makoto and Markus Gylling
+-->
+<grammar xmlns:epub="http://www.idpf.org/2007/ops" xmlns="http://relaxng.org/ns/structure/1.0">
+  <include href="svg11-flat.rng">
+    <start>
+      <ref name="svg"/>
+    </start>
+    <define name="SVG.id.attrib">
+      <optional>
+        <attribute name="id">
+          <parentRef name="datatype.ID"/>
+        </attribute>
+      </optional>
+    </define>
+    <!--
+      EXM-33307 Allow animation elements.
+      SVG.AnimationEvents.attrib = notAllowed
+      SVG.Animation.class = notAllowed
+    -->
+    <define name="SVG.foreignObject.extra.content">
+      <parentRef name="html5.flow.class"/>
+    </define>
+    <define name="SVG.title.extra.content">
+      <parentRef name="html5.phrasing.class"/>
+    </define>
+    <define name="SVG.Core.extra.attrib" combine="interleave">
+      <optional>
+        <attribute name="epub:type">
+          <parentRef name="datatype.properties"/>
+        </attribute>
+      </optional>
+    </define>
+  </include>
+</grammar>

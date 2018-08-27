@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="html5.flow.class" combine="choice">
+    <choice>
+      <ref name="html5.sections.class"/>
+      <ref name="html5.headings.class"/>
+    </choice>
+  </define>
+  <define name="html5.sections.class" combine="choice">
+    <choice>
+      <ref name="html5.section"/>
+      <ref name="html5.article"/>
+      <ref name="html5.nav"/>
+      <ref name="html5.aside"/>
+      <ref name="html5.header"/>
+      <ref name="html5.footer"/>
+      <ref name="html5.address"/>
+      <ref name="html5.main"/>
+    </choice>
+  </define>
+  <define name="html5.headings.class" combine="choice">
+    <choice>
+      <ref name="html5.hgroup"/>
+      <ref name="html5.h1"/>
+      <ref name="html5.h2"/>
+      <ref name="html5.h3"/>
+      <ref name="html5.h4"/>
+      <ref name="html5.h5"/>
+      <ref name="html5.h6"/>
+    </choice>
+  </define>
+  <define name="html5.headings.attrs" combine="interleave">
+    <ref name="html5.global.attrs"/>
+  </define>
+  <define name="html5.sections.attrs" combine="interleave">
+    <ref name="html5.global.attrs"/>
+  </define>
+  <define name="html5.hgroup">
+    <element name="hgroup">
+      <interleave>
+        <ref name="html5.hgroup.attlist"/>
+        <ref name="html5.hgroup.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.hgroup.attlist" combine="interleave">
+    <ref name="html5.headings.attrs"/>
+  </define>
+  <define name="html5.hgroup.content">
+    <oneOrMore>
+      <choice>
+        <ref name="html5.h1"/>
+        <ref name="html5.h2"/>
+        <ref name="html5.h3"/>
+        <ref name="html5.h4"/>
+        <ref name="html5.h5"/>
+        <ref name="html5.h6"/>
+      </choice>
+    </oneOrMore>
+  </define>
+  <define name="html5.h1">
+    <element name="h1">
+      <ref name="html5.h.attlist"/>
+      <ref name="html5.h.content"/>
+    </element>
+  </define>
+  <define name="html5.h2">
+    <element name="h2">
+      <ref name="html5.h.attlist"/>
+      <ref name="html5.h.content"/>
+    </element>
+  </define>
+  <define name="html5.h3">
+    <element name="h3">
+      <ref name="html5.h.attlist"/>
+      <ref name="html5.h.content"/>
+    </element>
+  </define>
+  <define name="html5.h4">
+    <element name="h4">
+      <ref name="html5.h.attlist"/>
+      <ref name="html5.h.content"/>
+    </element>
+  </define>
+  <define name="html5.h5">
+    <element name="h5">
+      <ref name="html5.h.attlist"/>
+      <ref name="html5.h.content"/>
+    </element>
+  </define>
+  <define name="html5.h6">
+    <element name="h6">
+      <ref name="html5.h.attlist"/>
+      <ref name="html5.h.content"/>
+    </element>
+  </define>
+  <define name="html5.h.attlist" combine="interleave">
+    <ref name="html5.headings.attrs"/>
+  </define>
+  <define name="html5.h.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.section">
+    <element name="section">
+      <interleave>
+        <ref name="html5.section.attlist"/>
+        <ref name="html5.section.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.section.attlist" combine="interleave">
+    <ref name="html5.sections.attrs"/>
+  </define>
+  <define name="html5.section.content">
+    <ref name="html5.section.model"/>
+  </define>
+  <define name="html5.article">
+    <element name="article">
+      <interleave>
+        <ref name="html5.article.attlist"/>
+        <ref name="html5.article.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.article.attlist" combine="interleave">
+    <ref name="html5.sections.attrs"/>
+  </define>
+  <define name="html5.article.content">
+    <ref name="html5.section.model"/>
+  </define>
+  <define name="html5.nav">
+    <element name="nav">
+      <interleave>
+        <ref name="html5.nav.attlist"/>
+        <ref name="html5.nav.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.nav.attlist" combine="interleave">
+    <ref name="html5.sections.attrs"/>
+  </define>
+  <define name="html5.nav.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.aside">
+    <element name="aside">
+      <interleave>
+        <ref name="html5.aside.attlist"/>
+        <ref name="html5.aside.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.aside.attlist" combine="interleave">
+    <ref name="html5.sections.attrs"/>
+  </define>
+  <define name="html5.aside.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.header">
+    <element name="header">
+      <interleave>
+        <ref name="html5.header.attlist"/>
+        <ref name="html5.header.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.header.attlist" combine="interleave">
+    <ref name="html5.sections.attrs"/>
+  </define>
+  <define name="html5.header.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.footer">
+    <element name="footer">
+      <interleave>
+        <ref name="html5.footer.attlist"/>
+        <ref name="html5.footer.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.footer.attlist" combine="interleave">
+    <ref name="html5.sections.attrs"/>
+  </define>
+  <define name="html5.footer.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.address">
+    <element name="address">
+      <interleave>
+        <ref name="html5.address.attlist"/>
+        <ref name="html5.address.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.address.attlist" combine="interleave">
+    <ref name="html5.sections.attrs"/>
+  </define>
+  <define name="html5.address.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.main">
+    <element name="main">
+      <interleave>
+        <ref name="html5.main.attlist"/>
+        <ref name="html5.main.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.main.attlist" combine="interleave">
+    <ref name="html5.sections.attrs"/>
+  </define>
+  <define name="html5.main.content">
+    <ref name="html5.flow.model"/>
+  </define>
+</grammar>

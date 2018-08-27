@@ -1,0 +1,1884 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="html5.flow.class" combine="choice">
+    <ref name="html5.forms.flow.class"/>
+  </define>
+  <define name="html5.phrasing.class" combine="choice">
+    <ref name="html5.forms.phrasing.class"/>
+  </define>
+  <define name="html5.forms.flow.class" combine="choice">
+    <choice>
+      <ref name="html5.form"/>
+      <ref name="html5.fieldset"/>
+    </choice>
+  </define>
+  <define name="html5.forms.phrasing.class" combine="choice">
+    <choice>
+      <ref name="html5.meter"/>
+      <ref name="html5.input.class"/>
+      <ref name="html5.textarea"/>
+      <ref name="html5.label"/>
+      <ref name="html5.button.class"/>
+      <ref name="html5.select"/>
+      <ref name="html5.output"/>
+      <ref name="html5.datalist"/>
+      <ref name="html5.keygen"/>
+    </choice>
+  </define>
+  <define name="html5.input.class" combine="choice">
+    <choice>
+      <ref name="html5.input.text"/>
+      <ref name="html5.input.password"/>
+      <ref name="html5.input.checkbox"/>
+      <ref name="html5.input.radio"/>
+      <ref name="html5.input.button"/>
+      <ref name="html5.input.submit"/>
+      <ref name="html5.input.reset"/>
+      <ref name="html5.input.file"/>
+      <ref name="html5.input.hidden"/>
+      <ref name="html5.input.image"/>
+      <ref name="html5.input.datetime"/>
+      <ref name="html5.input.datetime-local"/>
+      <ref name="html5.input.date"/>
+      <ref name="html5.input.month"/>
+      <ref name="html5.input.time"/>
+      <ref name="html5.input.week"/>
+      <ref name="html5.input.number"/>
+      <ref name="html5.input.range"/>
+      <ref name="html5.input.email"/>
+      <ref name="html5.input.url"/>
+      <ref name="html5.input.search"/>
+      <ref name="html5.input.tel"/>
+      <ref name="html5.input.color"/>
+    </choice>
+  </define>
+  <define name="html5.button.class" combine="choice">
+    <choice>
+      <ref name="html5.button.submit"/>
+      <ref name="html5.button.reset"/>
+      <ref name="html5.button.button"/>
+    </choice>
+  </define>
+  <define name="html5.form">
+    <element name="form">
+      <interleave>
+        <ref name="html5.form.attlist"/>
+        <ref name="html5.form.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.form.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <optional>
+        <ref name="html5.form.action.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.form.method.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.form.enctype.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.name.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.form.accept-charset.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.form.novalidate.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.form.target.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.form.autocomplete.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.form.action.attr">
+    <attribute name="action">
+      <ref name="datatype.html5.URL.spaces"/>
+    </attribute>
+  </define>
+  <define name="html5.form.method.attr">
+    <attribute name="method">
+      <ref name="html5.form.method.attr.value"/>
+    </attribute>
+  </define>
+  <define name="html5.form.method.attr.value">
+    <choice>
+      <value>get</value>
+      <value>post</value>
+    </choice>
+  </define>
+  <define name="html5.form.enctype.attr">
+    <attribute name="enctype">
+      <ref name="html5.form.enctype.attr.value"/>
+    </attribute>
+  </define>
+  <define name="html5.form.enctype.attr.value">
+    <choice>
+      <value>application/x-www-form-urlencoded</value>
+      <value>multipart/form-data</value>
+      <value>text/plain</value>
+    </choice>
+  </define>
+  <define name="html5.form.accept-charset.attr">
+    <attribute name="accept-charset">
+      <ref name="datatype.html5.forms.charsetlist"/>
+    </attribute>
+  </define>
+  <define name="html5.form.novalidate.attr">
+    <attribute name="novalidate">
+      <choice>
+        <value>novalidate</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.form.target.attr">
+    <attribute name="target">
+      <ref name="datatype.html5.browsing.context.name.or.keyword"/>
+    </attribute>
+  </define>
+  <define name="html5.form.autocomplete.attr">
+    <attribute name="autocomplete">
+      <choice>
+        <value>on</value>
+        <value>off</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.form.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.input.text">
+    <element name="input">
+      <ref name="html5.input.text.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.text.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <optional>
+        <attribute name="type">
+          <value>text</value>
+        </attribute>
+      </optional>
+      <optional>
+        <ref name="html5.forms.maxlength.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.readonly.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.size.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.text.value.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.autocomplete.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.list.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.pattern.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.required.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.placeholder.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.text.value.attr">
+    <attribute name="value">
+      <ref name="datatype.html5.forms.string.nolinebreaks"/>
+    </attribute>
+  </define>
+  <define name="html5.input.password">
+    <element name="input">
+      <ref name="html5.input.password.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.password.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>password</value>
+      </attribute>
+      <optional>
+        <ref name="html5.forms.maxlength.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.readonly.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.size.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.password.value.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.autocomplete.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.pattern.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.required.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.placeholder.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.password.value.attr">
+    <attribute name="value">
+      <ref name="datatype.html5.forms.string.nolinebreaks"/>
+    </attribute>
+  </define>
+  <define name="html5.input.checkbox">
+    <element name="input">
+      <ref name="html5.input.checkbox.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.checkbox.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>checkbox</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.checked.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.checkbox.value.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.required.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.checkbox.value.attr">
+    <attribute name="value">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.input.radio">
+    <element name="input">
+      <ref name="html5.input.radio.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.radio.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>radio</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.checked.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.radio.value.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.required.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.radio.value.attr">
+    <attribute name="value">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.input.button">
+    <element name="input">
+      <ref name="html5.input.button.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.button.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>button</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.button.value.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.button.value.attr">
+    <attribute name="value">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.input.submit">
+    <element name="input">
+      <ref name="html5.input.submit.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.submit.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>submit</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.submit.value.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.formaction.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.formenctype.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.formmethod.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.formtarget.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.formnovalidate.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.submit.value.attr">
+    <attribute name="value">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.input.reset">
+    <element name="input">
+      <ref name="html5.input.reset.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.reset.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>reset</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.reset.value.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.reset.value.attr">
+    <attribute name="value">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.input.file">
+    <element name="input">
+      <ref name="html5.input.file.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.file.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>file</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.file.accept.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.required.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.multiple.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.file.accept.attr">
+    <attribute name="accept">
+      <ref name="datatype.html5.forms.mimetypelist"/>
+    </attribute>
+  </define>
+  <define name="html5.input.hidden">
+    <element name="input">
+      <ref name="html5.input.hidden.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.hidden.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>hidden</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.hidden.value.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.hidden.value.attr">
+    <attribute name="value">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.input.image">
+    <element name="input">
+      <ref name="html5.input.image.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.image.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>image</value>
+      </attribute>
+      <ref name="html5.alt.attr"/>
+      <ref name="html5.src.attr"/>
+      <optional>
+        <ref name="html5.forms.formaction.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.formenctype.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.formmethod.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.formtarget.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.formnovalidate.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.dimension.attrs"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.datetime">
+    <element name="input">
+      <ref name="html5.input.datetime.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.datetime.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>datetime</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.autocomplete.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.list.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.datetime.min.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.datetime.max.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.step.float.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.readonly.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.required.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.datetime.value.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.datetime.min.attr">
+    <attribute name="min">
+      <ref name="datatype.html5.datetime"/>
+    </attribute>
+  </define>
+  <define name="html5.input.datetime.max.attr">
+    <attribute name="max">
+      <ref name="datatype.html5.datetime"/>
+    </attribute>
+  </define>
+  <define name="html5.input.datetime.value.attr">
+    <attribute name="value">
+      <ref name="datatype.html5.datetime"/>
+    </attribute>
+  </define>
+  <define name="html5.input.datetime-local">
+    <element name="input">
+      <ref name="html5.input.datetime-local.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.datetime-local.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>datetime-local</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.autocomplete.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.list.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.datetime-local.min.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.datetime-local.max.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.step.float.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.readonly.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.required.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.datetime-local.value.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.datetime-local.min.attr">
+    <attribute name="min">
+      <ref name="datatype.html5.datetime.local"/>
+    </attribute>
+  </define>
+  <define name="html5.input.datetime-local.max.attr">
+    <attribute name="max">
+      <ref name="datatype.html5.datetime.local"/>
+    </attribute>
+  </define>
+  <define name="html5.input.datetime-local.value.attr">
+    <attribute name="value">
+      <ref name="datatype.html5.datetime.local"/>
+    </attribute>
+  </define>
+  <define name="html5.input.date">
+    <element name="input">
+      <ref name="html5.input.date.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.date.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>date</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.autocomplete.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.list.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.date.min.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.date.max.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.step.integer.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.readonly.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.required.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.date.value.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.date.min.attr">
+    <attribute name="min">
+      <ref name="datatype.html5.date"/>
+    </attribute>
+  </define>
+  <define name="html5.input.date.max.attr">
+    <attribute name="max">
+      <ref name="datatype.html5.date"/>
+    </attribute>
+  </define>
+  <define name="html5.input.date.value.attr">
+    <attribute name="value">
+      <ref name="datatype.html5.date"/>
+    </attribute>
+  </define>
+  <define name="html5.input.month">
+    <element name="input">
+      <ref name="html5.input.month.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.month.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>month</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.autocomplete.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.list.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.month.min.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.month.max.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.step.integer.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.readonly.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.required.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.month.value.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.month.min.attr">
+    <attribute name="min">
+      <ref name="datatype.html5.month"/>
+    </attribute>
+  </define>
+  <define name="html5.input.month.max.attr">
+    <attribute name="max">
+      <ref name="datatype.html5.month"/>
+    </attribute>
+  </define>
+  <define name="html5.input.month.value.attr">
+    <attribute name="value">
+      <ref name="datatype.html5.month"/>
+    </attribute>
+  </define>
+  <define name="html5.input.time">
+    <element name="input">
+      <ref name="html5.input.time.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.time.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>time</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.autocomplete.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.list.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.time.min.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.time.max.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.step.float.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.readonly.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.required.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.time.value.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.time.min.attr">
+    <attribute name="min">
+      <ref name="datatype.html5.time"/>
+    </attribute>
+  </define>
+  <define name="html5.input.time.max.attr">
+    <attribute name="max">
+      <ref name="datatype.html5.time"/>
+    </attribute>
+  </define>
+  <define name="html5.input.time.value.attr">
+    <attribute name="value">
+      <ref name="datatype.html5.time"/>
+    </attribute>
+  </define>
+  <define name="html5.input.week">
+    <element name="input">
+      <ref name="html5.input.week.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.week.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>week</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.autocomplete.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.list.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.week.min.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.week.max.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.step.integer.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.readonly.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.required.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.week.value.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.week.min.attr">
+    <attribute name="min">
+      <ref name="datatype.html5.week"/>
+    </attribute>
+  </define>
+  <define name="html5.input.week.max.attr">
+    <attribute name="max">
+      <ref name="datatype.html5.week"/>
+    </attribute>
+  </define>
+  <define name="html5.input.week.value.attr">
+    <attribute name="value">
+      <ref name="datatype.html5.week"/>
+    </attribute>
+  </define>
+  <define name="html5.input.number">
+    <element name="input">
+      <ref name="input.number.attlist"/>
+    </element>
+  </define>
+  <define name="input.number.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>number</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.autocomplete.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.list.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.number.min.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.number.max.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.step.float.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.readonly.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.required.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.number.value.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.number.min.attr">
+    <attribute name="min">
+      <ref name="datatype.float"/>
+    </attribute>
+  </define>
+  <define name="html5.input.number.max.attr">
+    <attribute name="max">
+      <ref name="datatype.float"/>
+    </attribute>
+  </define>
+  <define name="html5.input.number.value.attr">
+    <attribute name="value">
+      <ref name="datatype.float"/>
+    </attribute>
+  </define>
+  <define name="html5.input.range">
+    <element name="input">
+      <ref name="html5.input.range.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.range.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>range</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.autocomplete.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.list.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.range.min.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.range.max.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.step.float.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.range.value.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.range.min.attr">
+    <attribute name="min">
+      <ref name="datatype.float"/>
+    </attribute>
+  </define>
+  <define name="html5.input.range.max.attr">
+    <attribute name="max">
+      <ref name="datatype.float"/>
+    </attribute>
+  </define>
+  <define name="html5.input.range.value.attr">
+    <attribute name="value">
+      <ref name="datatype.float"/>
+    </attribute>
+  </define>
+  <define name="html5.input.email">
+    <element name="input">
+      <ref name="html5.input.email.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.email.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>email</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.autocomplete.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.list.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.maxlength.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.pattern.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.readonly.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.required.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.size.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.placeholder.attr"/>
+      </optional>
+      <optional>
+        <choice>
+          <interleave>
+            <ref name="html5.input.multiple.attr"/>
+            <optional>
+              <ref name="html5.input.email.value.multiple.attr"/>
+            </optional>
+          </interleave>
+          <optional>
+            <ref name="html5.input.email.value.single.attr"/>
+          </optional>
+        </choice>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.email.value.single.attr">
+    <attribute name="value">
+      <ref name="datatype.html5.emailaddress"/>
+    </attribute>
+  </define>
+  <define name="html5.input.email.value.multiple.attr">
+    <attribute name="value">
+      <ref name="datatype.html5.emailaddresslist"/>
+    </attribute>
+  </define>
+  <define name="html5.input.url">
+    <element name="input">
+      <ref name="html5.input.url.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.url.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>url</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.autocomplete.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.list.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.maxlength.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.pattern.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.readonly.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.required.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.size.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.placeholder.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.url.value.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.url.value.attr">
+    <attribute name="value">
+      <choice>
+        <value/>
+        <ref name="datatype.URI.absolute"/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.input.search">
+    <element name="input">
+      <ref name="html5.input.search.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.search.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>search</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.autocomplete.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.list.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.maxlength.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.pattern.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.readonly.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.required.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.size.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.placeholder.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.search.value.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.search.value.attr">
+    <attribute name="value">
+      <ref name="datatype.html5.forms.string.nolinebreaks"/>
+    </attribute>
+  </define>
+  <define name="html5.input.tel">
+    <element name="input">
+      <ref name="html5.input.tel.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.tel.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>tel</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.autocomplete.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.list.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.maxlength.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.pattern.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.readonly.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.required.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.size.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.placeholder.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.tel.value.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.tel.value.attr">
+    <attribute name="value">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.input.color">
+    <element name="input">
+      <ref name="html5.input.color.attlist"/>
+    </element>
+  </define>
+  <define name="html5.input.color.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <attribute name="type">
+        <value>color</value>
+      </attribute>
+      <optional>
+        <ref name="html5.input.autocomplete.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.list.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.input.color.value.attr"/>
+      </optional>
+      <ref name="html5.input.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.input.color.value.attr">
+    <attribute name="value">
+      <ref name="datatype.html5.color"/>
+    </attribute>
+  </define>
+  <define name="html5.textarea">
+    <element name="textarea">
+      <interleave>
+        <ref name="html5.textarea.attlist"/>
+        <ref name="html5.textarea.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.textarea.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <optional>
+        <ref name="html5.forms.readonly.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.maxlength.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.required.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.placeholder.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.textarea.rows.attr"/>
+      </optional>
+      <choice>
+        <interleave>
+          <optional>
+            <ref name="html5.textarea.wrap.hard.attr"/>
+          </optional>
+          <ref name="html5.textarea.cols.attr"/>
+        </interleave>
+        <interleave>
+          <optional>
+            <ref name="html5.textarea.wrap.soft.attr"/>
+          </optional>
+          <optional>
+            <ref name="html5.textarea.cols.attr"/>
+          </optional>
+        </interleave>
+      </choice>
+      <optional>
+        <ref name="html5.forms.dirname.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.textarea.cols.attr">
+    <attribute name="cols">
+      <ref name="datatype.positive.integer"/>
+    </attribute>
+  </define>
+  <define name="html5.textarea.rows.attr">
+    <attribute name="rows">
+      <ref name="datatype.positive.integer"/>
+    </attribute>
+  </define>
+  <define name="html5.textarea.wrap.hard.attr">
+    <attribute name="wrap">
+      <value>hard</value>
+    </attribute>
+  </define>
+  <define name="html5.textarea.wrap.soft.attr">
+    <attribute name="wrap">
+      <value>soft</value>
+    </attribute>
+  </define>
+  <define name="html5.textarea.content">
+    <ref name="datatype.text"/>
+  </define>
+  <define name="html5.option">
+    <element name="option">
+      <interleave>
+        <ref name="html5.option.attlist"/>
+        <ref name="html5.option.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.option.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <optional>
+        <ref name="html5.forms.disabled.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.option.selected.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.option.label.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.option.value.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.option.selected.attr">
+    <attribute name="selected">
+      <choice>
+        <value>selected</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.option.label.attr">
+    <attribute name="label">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.option.value.attr">
+    <attribute name="value">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.option.content">
+    <ref name="datatype.text"/>
+  </define>
+  <define name="html5.optgroup">
+    <element name="optgroup">
+      <interleave>
+        <ref name="html5.optgroup.attlist"/>
+        <ref name="html5.optgroup.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.optgroup.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.optgroup.label.attr"/>
+      <optional>
+        <ref name="html5.forms.disabled.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.optgroup.label.attr">
+    <attribute name="label">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.optgroup.content">
+    <zeroOrMore>
+      <ref name="html5.option"/>
+    </zeroOrMore>
+  </define>
+  <define name="html5.select">
+    <element name="select">
+      <interleave>
+        <ref name="html5.select.attlist"/>
+        <ref name="html5.select.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.select.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <optional>
+        <ref name="html5.select.size.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.select.multiple.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.required.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.select.size.attr">
+    <attribute name="size">
+      <ref name="datatype.positive.integer"/>
+    </attribute>
+  </define>
+  <define name="html5.select.multiple.attr">
+    <attribute name="multiple">
+      <choice>
+        <value>multiple</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.select.content">
+    <interleave>
+      <zeroOrMore>
+        <ref name="html5.optgroup"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="html5.option"/>
+      </zeroOrMore>
+    </interleave>
+  </define>
+  <define name="html5.button.submit">
+    <element name="button">
+      <interleave>
+        <ref name="html5.button.submit.attlist"/>
+        <ref name="html5.button.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.button.submit.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <optional>
+        <ref name="html5.button.submit.type.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.button.value.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.formaction.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.formenctype.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.formmethod.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.formtarget.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.formnovalidate.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.button.submit.type.attr">
+    <attribute name="type">
+      <value>submit</value>
+    </attribute>
+  </define>
+  <define name="html5.button.reset">
+    <element name="button">
+      <interleave>
+        <ref name="html5.button.reset.attlist"/>
+        <ref name="html5.button.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.button.reset.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <ref name="html5.button.reset.type.attr"/>
+      <optional>
+        <ref name="html5.button.value.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.button.reset.type.attr">
+    <attribute name="type">
+      <value>reset</value>
+    </attribute>
+  </define>
+  <define name="html5.button.button">
+    <element name="button">
+      <interleave>
+        <ref name="html5.button.button.attlist"/>
+        <ref name="html5.button.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.button.button.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+      <ref name="html5.button.button.type.attr"/>
+      <optional>
+        <ref name="html5.button.value.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.button.button.type.attr">
+    <attribute name="type">
+      <value>button</value>
+    </attribute>
+  </define>
+  <define name="html5.button.value.attr">
+    <attribute name="value">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.button.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.fieldset">
+    <element name="fieldset">
+      <interleave>
+        <ref name="html5.fieldset.attlist"/>
+        <ref name="html5.fieldset.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.fieldset.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.forms.common.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.fieldset.content">
+    <optional>
+      <ref name="html5.legend"/>
+    </optional>
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.legend">
+    <element name="legend">
+      <interleave>
+        <ref name="html5.legend.attlist"/>
+        <ref name="html5.legend.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.legend.attlist">
+    <ref name="html5.global.attrs"/>
+  </define>
+  <define name="html5.legend.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.label">
+    <element name="label">
+      <interleave>
+        <ref name="html5.label.attlist"/>
+        <ref name="html5.label.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.label.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <optional>
+        <ref name="html5.label.for.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.form.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.label.for.attr">
+    <attribute name="for">
+      <ref name="datatype.IDREF"/>
+    </attribute>
+  </define>
+  <define name="html5.label.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.meter">
+    <element name="meter">
+      <interleave>
+        <ref name="html5.meter.attlist"/>
+        <ref name="html5.meter.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.meter.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <ref name="html5.meter.value.attr"/>
+      <optional>
+        <ref name="html5.meter.min.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.meter.low.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.meter.high.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.meter.max.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.meter.optimum.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.meter.value.attr">
+    <attribute name="value">
+      <ref name="datatype.float"/>
+    </attribute>
+  </define>
+  <define name="html5.meter.min.attr">
+    <attribute name="min">
+      <ref name="datatype.float"/>
+    </attribute>
+  </define>
+  <define name="html5.meter.low.attr">
+    <attribute name="low">
+      <ref name="datatype.float"/>
+    </attribute>
+  </define>
+  <define name="html5.meter.high.attr">
+    <attribute name="high">
+      <ref name="datatype.float"/>
+    </attribute>
+  </define>
+  <define name="html5.meter.max.attr">
+    <attribute name="max">
+      <ref name="datatype.float"/>
+    </attribute>
+  </define>
+  <define name="html5.meter.optimum.attr">
+    <attribute name="optimum">
+      <ref name="datatype.float"/>
+    </attribute>
+  </define>
+  <define name="html5.meter.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.output">
+    <element name="output">
+      <interleave>
+        <ref name="html5.output.attlist"/>
+        <ref name="html5.output.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.output.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <optional>
+        <ref name="html5.forms.name.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.form.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.output.for.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.output.for.attr">
+    <attribute name="for">
+      <ref name="datatype.IDREFS"/>
+    </attribute>
+  </define>
+  <define name="html5.output.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.datalist">
+    <element name="datalist">
+      <interleave>
+        <ref name="html5.datalist.attlist"/>
+        <ref name="html5.datalist.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.datalist.attlist">
+    <ref name="html5.global.attrs"/>
+  </define>
+  <define name="html5.datalist.content">
+    <interleave>
+      <zeroOrMore>
+        <ref name="html5.option"/>
+      </zeroOrMore>
+      <ref name="html5.phrasing.model"/>
+    </interleave>
+  </define>
+  <define name="html5.keygen">
+    <element name="keygen">
+      <ref name="html5.keygen.attlist"/>
+    </element>
+  </define>
+  <define name="html5.keygen.attlist">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <optional>
+        <ref name="html5.keygen.challenge.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.keygen.keytype.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.autofocus.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.common.attrs"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.keygen.challenge.attr">
+    <attribute name="challenge">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.keygen.keytype.attr">
+    <attribute name="keytype">
+      <value>rsa</value>
+    </attribute>
+  </define>
+  <define name="html5.input.common.attrs">
+    <optional>
+      <ref name="html5.forms.dirname.attr"/>
+    </optional>
+  </define>
+  <define name="html5.input.checked.attr">
+    <attribute name="checked">
+      <choice>
+        <value>checked</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.input.autocomplete.attr">
+    <attribute name="autocomplete">
+      <choice>
+        <value>on</value>
+        <value>off</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.input.list.attr">
+    <attribute name="list">
+      <ref name="datatype.IDREF"/>
+    </attribute>
+  </define>
+  <define name="html5.input.step.float.attr">
+    <attribute name="step">
+      <choice>
+        <value>any</value>
+        <ref name="datatype.float.positive"/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.input.step.integer.attr">
+    <attribute name="step">
+      <choice>
+        <value>any</value>
+        <ref name="datatype.positive.integer"/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.input.multiple.attr">
+    <attribute name="multiple">
+      <choice>
+        <value>multiple</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.forms.common.attrs">
+    <interleave>
+      <optional>
+        <ref name="html5.forms.name.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.disabled.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.forms.form.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.forms.name.attr">
+    <attribute name="name">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+  <define name="html5.forms.disabled.attr">
+    <attribute name="disabled">
+      <choice>
+        <value>disabled</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.forms.form.attr">
+    <attribute name="form">
+      <ref name="datatype.IDREF"/>
+    </attribute>
+  </define>
+  <define name="html5.forms.readonly.attr">
+    <attribute name="readonly">
+      <choice>
+        <value>readonly</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.forms.maxlength.attr">
+    <attribute name="maxlength">
+      <ref name="datatype.non-negative.integer"/>
+    </attribute>
+  </define>
+  <define name="html5.forms.size.attr">
+    <attribute name="size">
+      <ref name="datatype.positive.integer"/>
+    </attribute>
+  </define>
+  <define name="html5.forms.formaction.attr">
+    <attribute name="formaction">
+      <ref name="datatype.html5.URL.spaces"/>
+    </attribute>
+  </define>
+  <define name="html5.forms.formenctype.attr">
+    <attribute name="formenctype">
+      <ref name="html5.forms.formenctype.attr.value"/>
+    </attribute>
+  </define>
+  <define name="html5.forms.formenctype.attr.value">
+    <choice>
+      <value>application/x-www-form-urlencoded</value>
+      <value>multipart/form-data</value>
+      <value>text/plain</value>
+    </choice>
+  </define>
+  <define name="html5.forms.formmethod.attr">
+    <attribute name="formmethod">
+      <ref name="html5.forms.formmethod.attr.value"/>
+    </attribute>
+  </define>
+  <define name="html5.forms.formmethod.attr.value">
+    <choice>
+      <value>get</value>
+      <value>post</value>
+    </choice>
+  </define>
+  <define name="html5.forms.formtarget.attr">
+    <attribute name="formtarget">
+      <ref name="datatype.html5.browsing.context.name.or.keyword"/>
+    </attribute>
+  </define>
+  <define name="html5.forms.formnovalidate.attr">
+    <attribute name="formnovalidate">
+      <choice>
+        <value>formnovalidate</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.forms.autofocus.attr">
+    <attribute name="autofocus">
+      <choice>
+        <value>autofocus</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.forms.pattern.attr">
+    <attribute name="pattern">
+      <ref name="datatype.html5.forms.pattern"/>
+    </attribute>
+  </define>
+  <define name="html5.forms.template.attr">
+    <attribute name="template">
+      <ref name="datatype.IDREF"/>
+    </attribute>
+  </define>
+  <define name="html5.forms.required.attr">
+    <attribute name="required">
+      <choice>
+        <value>required</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.forms.placeholder.attr">
+    <attribute name="placeholder">
+      <ref name="datatype.html5.forms.string.nolinebreaks"/>
+    </attribute>
+  </define>
+  <define name="html5.forms.dirname.attr">
+    <attribute name="dirname">
+      <ref name="datatype.string"/>
+    </attribute>
+  </define>
+</grammar>

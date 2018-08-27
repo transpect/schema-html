@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <define name="html5.global.attrs" combine="interleave">
+    <ref name="html5.rdfa.attrs"/>
+  </define>
+  <define name="html5.link.choice" combine="choice">
+    <interleave>
+      <ref name="html5.rdfa.attrs"/>
+      <optional>
+        <ref name="html5.href.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.meta.attlist" combine="interleave">
+    <ref name="html5.rdfa.attrs.no-content-property"/>
+  </define>
+  <define name="html5.meta.attrs.choice" combine="choice">
+    <interleave>
+      <ref name="html5.rdfa.property.attr"/>
+      <ref name="html5.meta.content.attr"/>
+    </interleave>
+  </define>
+  <define name="html5.a.phrasing.attlist" combine="interleave">
+    <ref name="html5.rdfa.attrs.no-rel"/>
+  </define>
+  <define name="html5.area.attlist" combine="interleave">
+    <ref name="html5.rdfa.attrs.no-rel"/>
+  </define>
+  <define name="html5.flow.class" combine="choice">
+    <a:documentation>elements ######</a:documentation>
+    <choice>
+      <ref name="html5.rdfa.link.elem"/>
+      <ref name="html5.rdfa.meta.elem"/>
+    </choice>
+  </define>
+  <define name="html5.rdfa.link.elem">
+    <element name="link">
+      <ref name="html5.rdfa.link.attlist"/>
+    </element>
+  </define>
+  <define name="html5.rdfa.link.attlist">
+    <interleave>
+      <ref name="html5.rdfa.property.attr"/>
+      <ref name="html5.rdfa.attrs.no-property"/>
+      <ref name="html5.global.common.attrs"/>
+      <ref name="html5.global.xml.attrs"/>
+      <optional>
+        <ref name="html5.media.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.hreflang.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.type.mime.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.link.sizes.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.href.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.rdfa.meta.elem">
+    <element name="meta">
+      <ref name="html5.rdfa.meta.attlist"/>
+    </element>
+  </define>
+  <define name="html5.rdfa.meta.attlist">
+    <interleave>
+      <ref name="html5.rdfa.property.attr"/>
+      <ref name="html5.rdfa.attrs.no-property"/>
+      <ref name="html5.global.common.attrs"/>
+      <ref name="html5.global.xml.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.rdfa.attrs" combine="interleave">
+    <a:documentation>attributes #####</a:documentation>
+    <interleave>
+      <optional>
+        <ref name="html5.rdfa.about.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.prefix.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.property.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.typeof.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.vocab.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.content.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.datatype.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.rel.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.resource.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.rev.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.inlist.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.rdfa.attrs.no-property" combine="interleave">
+    <interleave>
+      <optional>
+        <ref name="html5.rdfa.about.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.prefix.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.typeof.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.vocab.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.content.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.datatype.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.rel.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.resource.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.rev.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.inlist.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.rdfa.attrs.no-rel" combine="interleave">
+    <interleave>
+      <optional>
+        <ref name="html5.rdfa.about.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.prefix.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.property.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.typeof.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.vocab.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.content.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.datatype.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.resource.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.rev.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.inlist.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.rdfa.attrs.no-rel-property-resource" combine="interleave">
+    <interleave>
+      <optional>
+        <ref name="html5.rdfa.about.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.prefix.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.typeof.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.vocab.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.content.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.datatype.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.rev.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.inlist.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.rdfa.attrs.no-content-property" combine="interleave">
+    <interleave>
+      <optional>
+        <ref name="html5.rdfa.about.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.prefix.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.typeof.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.vocab.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.datatype.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.rel.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.resource.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.rev.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.rdfa.inlist.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.rdfa.prefix.attr">
+    <a:documentation>atomic attributes #############</a:documentation>
+    <attribute name="prefix">
+      <choice>
+        <data type="string">
+          <param name="pattern">\s*([\i-[:]][\c-[:]]*: [^ ]+)(\s+[\i-[:]][\c-[:]]*: [^ ]+)*\s*</param>
+        </data>
+        <value type="string" datatypeLibrary=""/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.rdfa.property.attr">
+    <attribute name="property">
+      <choice>
+        <list>
+          <oneOrMore>
+            <choice>
+              <ref name="datatypes.rdfa.term"/>
+              <ref name="datatypes.rdfa.curie"/>
+              <ref name="datatype.URI.absolute"/>
+            </choice>
+          </oneOrMore>
+        </list>
+        <value type="string" datatypeLibrary=""/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.rdfa.resource.attr">
+    <attribute name="resource">
+      <choice>
+        <ref name="datatypes.rdfa.safecurie"/>
+        <ref name="datatypes.rdfa.curie"/>
+        <ref name="datatype.URI"/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.rdfa.typeof.attr">
+    <attribute name="typeof">
+      <choice>
+        <list>
+          <oneOrMore>
+            <choice>
+              <ref name="datatypes.rdfa.term"/>
+              <ref name="datatypes.rdfa.curie"/>
+              <ref name="datatype.URI.absolute"/>
+            </choice>
+          </oneOrMore>
+        </list>
+        <value type="string" datatypeLibrary=""/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.rdfa.vocab.attr">
+    <attribute name="vocab">
+      <choice>
+        <ref name="datatype.URI.absolute"/>
+        <value type="string" datatypeLibrary=""/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.rdfa.about.attr">
+    <attribute name="about">
+      <choice>
+        <ref name="datatypes.rdfa.safecurie"/>
+        <ref name="datatypes.rdfa.curie"/>
+        <ref name="datatype.URI"/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.rdfa.content.attr">
+    <attribute name="content">
+      <data type="string" datatypeLibrary=""/>
+    </attribute>
+  </define>
+  <define name="html5.rdfa.datatype.attr">
+    <attribute name="datatype">
+      <choice>
+        <ref name="datatypes.rdfa.term"/>
+        <ref name="datatypes.rdfa.curie"/>
+        <ref name="datatype.URI.absolute"/>
+        <value type="string" datatypeLibrary=""/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.rdfa.rel.attr">
+    <attribute name="rel">
+      <choice>
+        <list>
+          <oneOrMore>
+            <choice>
+              <ref name="datatypes.rdfa.term"/>
+              <ref name="datatypes.rdfa.curie"/>
+              <ref name="datatype.URI.absolute"/>
+            </choice>
+          </oneOrMore>
+        </list>
+        <value type="string" datatypeLibrary=""/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.rdfa.rev.attr">
+    <attribute name="rev">
+      <choice>
+        <list>
+          <oneOrMore>
+            <choice>
+              <ref name="datatypes.rdfa.term"/>
+              <ref name="datatypes.rdfa.curie"/>
+              <ref name="datatype.URI.absolute"/>
+            </choice>
+          </oneOrMore>
+        </list>
+        <value type="string" datatypeLibrary=""/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.rdfa.inlist.attr">
+    <attribute name="inlist">
+      <data type="string" datatypeLibrary=""/>
+    </attribute>
+  </define>
+  <define name="datatypes.rdfa.safecurie">
+    <a:documentation>datatypes ###########</a:documentation>
+    <data type="string">
+      <param name="pattern">\[(([\i-[:]][\c-[:]]*)?:?)[^\s]*\]</param>
+      <param name="minLength">2</param>
+    </data>
+  </define>
+  <define name="datatypes.rdfa.curie">
+    <data type="string">
+      <param name="pattern">(([\i-[:]][\c-[:]]*)?:)[^\s]*</param>
+      <param name="minLength">1</param>
+    </data>
+  </define>
+  <define name="datatypes.rdfa.term">
+    <data type="string">
+      <param name="pattern">[\i-[:]][/\c-[:]]*</param>
+    </data>
+  </define>
+</grammar>

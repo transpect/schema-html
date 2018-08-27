@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="html5.flow.class" combine="choice">
+    <choice>
+      <ref name="html5.phrasing.class"/>
+      <ref name="html5.a.flow"/>
+    </choice>
+  </define>
+  <define name="html5.phrasing.class" combine="choice">
+    <choice>
+      <ref name="datatype.text"/>
+      <ref name="html5.a.phrasing"/>
+      <ref name="html5.em"/>
+      <ref name="html5.strong"/>
+      <ref name="html5.small"/>
+      <ref name="html5.cite"/>
+      <ref name="html5.q"/>
+      <ref name="html5.dfn"/>
+      <ref name="html5.abbr"/>
+      <ref name="html5.time"/>
+      <ref name="html5.code"/>
+      <ref name="html5.var"/>
+      <ref name="html5.samp"/>
+      <ref name="html5.kbd"/>
+      <ref name="html5.sup"/>
+      <ref name="html5.sub"/>
+      <ref name="html5.i"/>
+      <ref name="html5.b"/>
+      <ref name="html5.mark"/>
+      <ref name="html5.bdo"/>
+      <ref name="html5.bdi"/>
+      <ref name="html5.span"/>
+      <ref name="html5.br"/>
+      <ref name="html5.wbr"/>
+      <ref name="html5.s"/>
+      <ref name="html5.u"/>
+      <ref name="html5.ruby"/>
+    </choice>
+  </define>
+  <define name="html5.phrasing.attrs" combine="interleave">
+    <ref name="html5.global.attrs"/>
+  </define>
+  <define name="html5.a.flow">
+    <element name="a">
+      <interleave>
+        <ref name="html5.a.flow.attlist"/>
+        <ref name="html5.a.flow.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.a.flow.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.common.attrs"/>
+      <ref name="html5.global.xml.attrs"/>
+      <ref name="html5.a.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.a.flow.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.a.phrasing">
+    <element name="a">
+      <interleave>
+        <ref name="html5.a.phrasing.attlist"/>
+        <ref name="html5.a.phrasing.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.a.phrasing.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.common.attrs"/>
+      <ref name="html5.global.xml.attrs"/>
+      <ref name="html5.a.attrs"/>
+    </interleave>
+  </define>
+  <define name="html5.a.phrasing.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.a.attrs" combine="interleave">
+    <optional>
+      <interleave>
+        <ref name="html5.href.attr"/>
+        <interleave>
+          <optional>
+            <ref name="html5.hreflang.attr"/>
+          </optional>
+          <optional>
+            <ref name="html5.target.attr"/>
+          </optional>
+          <optional>
+            <ref name="html5.rel.attr"/>
+          </optional>
+          <optional>
+            <ref name="html5.media.attr"/>
+          </optional>
+          <optional>
+            <ref name="html5.type.mime.attr"/>
+          </optional>
+        </interleave>
+      </interleave>
+    </optional>
+  </define>
+  <define name="html5.abbr">
+    <element name="abbr">
+      <interleave>
+        <ref name="html5.abbr.attlist"/>
+        <ref name="html5.abbr.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.abbr.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.abbr.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.b">
+    <element name="b">
+      <interleave>
+        <ref name="html5.b.attlist"/>
+        <ref name="html5.b.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.b.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.b.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.bdo">
+    <element name="bdo">
+      <interleave>
+        <ref name="html5.bdo.attlist"/>
+        <ref name="html5.bdo.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.bdo.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.bdo.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.bdi">
+    <element name="bdi">
+      <interleave>
+        <ref name="html5.bdi.attlist"/>
+        <ref name="html5.bdi.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.bdi.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.bdi.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.br">
+    <element name="br">
+      <ref name="html5.br.attlist"/>
+    </element>
+  </define>
+  <define name="html5.br.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.cite">
+    <element name="cite">
+      <interleave>
+        <ref name="html5.cite.attlist"/>
+        <ref name="html5.cite.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.cite.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.cite.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.code">
+    <element name="code">
+      <interleave>
+        <ref name="html5.code.attlist"/>
+        <ref name="html5.code.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.code.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.code.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.dfn">
+    <element name="dfn">
+      <interleave>
+        <ref name="html5.dfn.attlist"/>
+        <ref name="html5.dfn.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.dfn.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.dfn.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.em">
+    <element name="em">
+      <interleave>
+        <ref name="html5.em.attlist"/>
+        <ref name="html5.em.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.em.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.em.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.i">
+    <element name="i">
+      <interleave>
+        <ref name="html5.i.attlist"/>
+        <ref name="html5.i.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.i.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.i.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.kbd">
+    <element name="kbd">
+      <interleave>
+        <ref name="html5.kbd.attlist"/>
+        <ref name="html5.kbd.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.kbd.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.kbd.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.mark">
+    <element name="mark">
+      <interleave>
+        <ref name="html5.mark.attlist"/>
+        <ref name="html5.mark.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.mark.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.mark.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.strong">
+    <element name="strong">
+      <interleave>
+        <ref name="html5.strong.attlist"/>
+        <ref name="html5.strong.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.strong.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.strong.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.small">
+    <element name="small">
+      <interleave>
+        <ref name="html5.small.attlist"/>
+        <ref name="html5.small.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.small.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.small.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.q">
+    <element name="q">
+      <interleave>
+        <ref name="html5.q.attlist"/>
+        <ref name="html5.q.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.q.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.phrasing.attrs"/>
+      <optional>
+        <ref name="html5.cite.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.q.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.s">
+    <element name="s">
+      <interleave>
+        <ref name="html5.s.attlist"/>
+        <ref name="html5.s.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.s.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.s.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.samp">
+    <element name="samp">
+      <interleave>
+        <ref name="html5.samp.attlist"/>
+        <ref name="html5.samp.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.samp.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.samp.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.sub">
+    <element name="sub">
+      <interleave>
+        <ref name="html5.sub.attlist"/>
+        <ref name="html5.sub.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.sub.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.sub.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.sup">
+    <element name="sup">
+      <interleave>
+        <ref name="html5.sup.attlist"/>
+        <ref name="html5.sup.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.sup.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.sup.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.span">
+    <element name="span">
+      <interleave>
+        <ref name="html5.span.attlist"/>
+        <ref name="html5.span.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.span.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.span.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.time">
+    <element name="time">
+      <interleave>
+        <ref name="html5.time.attlist"/>
+        <ref name="html5.time.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.time.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.phrasing.attrs"/>
+      <choice>
+        <interleave>
+          <ref name="html5.time.pubdate.attr"/>
+          <optional>
+            <ref name="html5.time.datetime.attr.date-optional-time"/>
+          </optional>
+        </interleave>
+        <optional>
+          <ref name="html5.time.datetime.attr.date-or-time"/>
+        </optional>
+      </choice>
+    </interleave>
+  </define>
+  <define name="html5.time.pubdate.attr">
+    <attribute name="pubdate">
+      <choice>
+        <value>pubdate</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.time.datetime.attr.date-optional-time">
+    <attribute name="datetime">
+      <ref name="datatype.html5.date.optional.time"/>
+    </attribute>
+  </define>
+  <define name="html5.time.datetime.attr.date-or-time">
+    <attribute name="datetime">
+      <ref name="datatype.html5.date.or.time"/>
+    </attribute>
+  </define>
+  <define name="html5.time.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.var">
+    <element name="var">
+      <interleave>
+        <ref name="html5.var.attlist"/>
+        <ref name="html5.var.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.var.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.var.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.wbr">
+    <element name="wbr">
+      <ref name="html5.wbr.attlist"/>
+    </element>
+  </define>
+  <define name="html5.wbr.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.u">
+    <element name="u">
+      <interleave>
+        <ref name="html5.u.attlist"/>
+        <ref name="html5.u.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.u.attlist">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.u.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.ruby">
+    <element name="ruby">
+      <interleave>
+        <ref name="html5.ruby.attlist"/>
+        <ref name="html5.ruby.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.ruby.attlist">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.ruby.content">
+    <oneOrMore>
+      <ref name="html5.phrasing.model"/>
+      <choice>
+        <ref name="html5.rt"/>
+        <group>
+          <ref name="html5.rp"/>
+          <ref name="html5.rt"/>
+          <ref name="html5.rp"/>
+        </group>
+      </choice>
+    </oneOrMore>
+  </define>
+  <define name="html5.rt">
+    <element name="rt">
+      <interleave>
+        <ref name="html5.rt.attlist"/>
+        <ref name="html5.rt.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.rt.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.rt.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.rp">
+    <element name="rp">
+      <interleave>
+        <ref name="html5.rp.attlist"/>
+        <ref name="html5.rp.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.rp.attlist" combine="interleave">
+    <ref name="html5.phrasing.attrs"/>
+  </define>
+  <define name="html5.rp.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+</grammar>

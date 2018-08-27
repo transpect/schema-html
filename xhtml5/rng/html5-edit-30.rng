@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="html5.flow.class" combine="choice">
+    <ref name="html5.edit.flow.class"/>
+  </define>
+  <define name="html5.phrasing.class" combine="choice">
+    <ref name="html5.edit.phrasing.class"/>
+  </define>
+  <define name="html5.edit.flow.class" combine="choice">
+    <choice>
+      <ref name="html5.ins.flow"/>
+      <ref name="html5.del.flow"/>
+    </choice>
+  </define>
+  <define name="html5.edit.phrasing.class" combine="choice">
+    <choice>
+      <ref name="html5.ins.phrasing"/>
+      <ref name="html5.del.phrasing"/>
+    </choice>
+  </define>
+  <define name="html5.ins.flow">
+    <element name="ins">
+      <interleave>
+        <ref name="html5.ins.attlist"/>
+        <ref name="html5.ins.flow.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.ins.phrasing">
+    <element name="ins">
+      <interleave>
+        <ref name="html5.ins.attlist"/>
+        <ref name="html5.ins.phrasing.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.ins.flow.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.ins.phrasing.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.ins.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <optional>
+        <ref name="html5.cite.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.edit.datetime.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.del.flow">
+    <element name="del">
+      <interleave>
+        <ref name="html5.del.attlist"/>
+        <ref name="html5.del.flow.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.del.phrasing">
+    <element name="del">
+      <interleave>
+        <ref name="html5.del.attlist"/>
+        <ref name="html5.del.phrasing.content"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="html5.del.flow.content">
+    <ref name="html5.flow.model"/>
+  </define>
+  <define name="html5.del.phrasing.content">
+    <ref name="html5.phrasing.model"/>
+  </define>
+  <define name="html5.del.attlist" combine="interleave">
+    <interleave>
+      <ref name="html5.global.attrs"/>
+      <optional>
+        <ref name="html5.cite.attr"/>
+      </optional>
+      <optional>
+        <ref name="html5.edit.datetime.attr"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="html5.edit.datetime.attr">
+    <attribute name="datetime">
+      <ref name="datatype.html5.date.optional.time"/>
+    </attribute>
+  </define>
+</grammar>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="html5.metadata.class" combine="choice">
+    <ref name="html5.template"/>
+  </define>
+  <define name="html5.flow.class" combine="choice">
+    <ref name="html5.template"/>
+  </define>
+  <define name="html5.phrasing.class" combine="choice">
+    <ref name="html5.template"/>
+  </define>
+  <define name="html5.template">
+    <element name="template">
+      <interleave>
+        <ref name="html5.global.common.attrs"/>
+        <ref name="any"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="any">
+    <zeroOrMore>
+      <choice>
+        <element>
+          <anyName/>
+          <zeroOrMore>
+            <attribute>
+              <anyName/>
+            </attribute>
+          </zeroOrMore>
+          <ref name="any"/>
+        </element>
+        <text/>
+      </choice>
+    </zeroOrMore>
+  </define>
+</grammar>

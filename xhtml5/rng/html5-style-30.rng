@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <define name="html5.metadata.class" combine="choice">
+    <ref name="html5.style.unscoped"/>
+  </define>
+  <define name="html5.global.common.attrs" combine="interleave">
+    <optional>
+      <ref name="html5.style.attr"/>
+    </optional>
+  </define>
+  <define name="html5.flow.class" combine="choice">
+    <ref name="html5.style.scoped"/>
+  </define>
+  <define name="html5.style.unscoped">
+    <element name="style">
+      <ref name="html5.style.unscoped.attlist"/>
+      <ref name="html5.style.content"/>
+    </element>
+  </define>
+  <define name="html5.style.unscoped.attlist" combine="interleave">
+    <ref name="html5.global.attrs"/>
+    <optional>
+      <ref name="html5.media.attr"/>
+    </optional>
+    <optional>
+      <ref name="html5.type.mime.nocharset.attr"/>
+    </optional>
+  </define>
+  <define name="html5.style.scoped">
+    <element name="style">
+      <ref name="html5.style.scoped.attlist"/>
+      <ref name="html5.style.content"/>
+    </element>
+  </define>
+  <define name="html5.style.scoped.attlist" combine="interleave">
+    <ref name="html5.global.attrs"/>
+    <optional>
+      <ref name="html5.media.attr"/>
+    </optional>
+    <optional>
+      <ref name="html5.type.mime.nocharset.attr"/>
+    </optional>
+    <ref name="html5.style.scoped.attr"/>
+  </define>
+  <define name="html5.style.scoped.attr">
+    <attribute name="scoped">
+      <choice>
+        <value>scoped</value>
+        <value/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="html5.style.content">
+    <ref name="datatype.style"/>
+  </define>
+  <define name="html5.style.attr">
+    <attribute name="style">
+      <ref name="datatype.style"/>
+    </attribute>
+  </define>
+</grammar>

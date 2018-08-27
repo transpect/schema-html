@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <!--
+    $Id: epub-xhtml-svg11-30.rnc 3024 2011-07-10 08:29:17Z eb2mmrt $
+    Contributors: MURATA Makoto and Markus Gylling
+  -->
+  <define name="html5.phrasing.class" combine="choice">
+    <ref name="svg"/>
+  </define>
+  <define name="html5.flow.class" combine="choice">
+    <ref name="svg"/>
+  </define>
+  <define name="svg">
+    <externalRef href="epub-svg11-30.rng"/>
+  </define>
+</grammar>

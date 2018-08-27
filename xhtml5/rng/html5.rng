@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" ns="http://www.w3.org/1999/xhtml">
+  <include href="html5-document-30.rng"/>
+  <include href="html5-sections-30.rng"/>
+  <include href="html5-grouping-30.rng"/>
+  <include href="html5-phrasing-30.rng"/>
+  <include href="html5-embed-30.rng"/>
+  <include href="html5-edit-30.rng"/>
+  <include href="html5-style-30.rng"/>
+  <include href="html5-script-30.rng"/>
+  <include href="html5-template-30.rng"/>
+  <include href="html5-interactive-30.rng"/>
+  <include href="html5-forms-30.rng"/>
+  <include href="html5-attrib-30.rng"/>
+  <include href="html5-aria-30.rng"/>
+  <include href="html5-rdfa.rng"/>
+  <include href="html5-md.rng"/>
+  <include href="datatypes.rng"/>
+  <include href="html5-models-30.rng"/>
+  <include href="epub-xhtml-mathml3-30.rng"/>
+  <include href="epub-xhtml-svg11-30.rng"/>
+  <include href="epub-trigger.rng"/>
+  <include href="epub-switch.rng"/>
+  <include href="epub-type-attr.rng"/>
+  <include href="epub-prefix-attr.rng"/>
+  <include href="epub-ssml-attrs.rng"/>
+  <start>
+    <choice>
+      <ref name="html5.html"/>
+      <ref name="html5.article"/>
+    </choice>
+  </start>
+</grammar>
