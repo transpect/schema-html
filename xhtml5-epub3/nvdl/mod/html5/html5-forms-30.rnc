@@ -22,7 +22,6 @@
 
 
    html5.form =
-## The form element represents a collection of form-associated elements, some of which can represent editable values that can be submitted to a server for processing.
  element form { html5.form.attlist & html5.form.content }	
    html5.form.attlist &= html5.global.attrs & html5.form.action.attr? 
       & html5.form.method.attr? & html5.form.enctype.attr? 
@@ -64,7 +63,6 @@
 
         
    html5.input.checkbox =
-## The input element represents a typed data field, usually with a form control to allow the user to edit the data.
  element input { html5.input.checkbox.attlist }
    html5.input.checkbox.attlist =  html5.global.attrs & html5.forms.common.attrs 
       & attribute type { 'checkbox' } & html5.input.checked.attr? 
@@ -74,7 +72,6 @@
 
 
    html5.input.radio =
-## The input element represents a typed data field, usually with a form control to allow the user to edit the data.
  element input { html5.input.radio.attlist }
    html5.input.radio.attlist = html5.global.attrs & html5.forms.common.attrs
       & attribute type { 'radio' } & html5.input.checked.attr? 
@@ -84,7 +81,6 @@
 
 
    html5.input.button =
-## The input element represents a typed data field, usually with a form control to allow the user to edit the data.
  element input { html5.input.button.attlist }
    html5.input.button.attlist = html5.global.attrs & html5.forms.common.attrs 
       & attribute type { 'button' } & html5.input.button.value.attr? 
@@ -93,7 +89,6 @@
 
 
    html5.input.submit =
-## The input element represents a typed data field, usually with a form control to allow the user to edit the data.
  element input { html5.input.submit.attlist }
    html5.input.submit.attlist = html5.global.attrs & html5.forms.common.attrs
       & attribute type { 'submit' } & html5.input.submit.value.attr? 
@@ -105,7 +100,6 @@
 
      
    html5.input.reset =
-## The input element represents a typed data field, usually with a form control to allow the user to edit the data.
  element input { html5.input.reset.attlist }
    html5.input.reset.attlist = html5.global.attrs & html5.forms.common.attrs
       & attribute type { 'reset' } & html5.input.reset.value.attr?
@@ -122,7 +116,6 @@
      
      
    html5.input.hidden =
-## The input element represents a typed data field, usually with a form control to allow the user to edit the data.
  element input { html5.input.hidden.attlist }
    html5.input.hidden.attlist = html5.global.attrs & html5.forms.common.attrs
       & attribute type { 'hidden' } & html5.input.hidden.value.attr? 
@@ -131,7 +124,6 @@
      
 
    html5.input.image =
-## The input element represents a typed data field, usually with a form control to allow the user to edit the data.
  element input { html5.input.image.attlist }
    html5.input.image.attlist = html5.global.attrs & html5.forms.common.attrs
       & attribute type { 'image' } & html5.alt.attr & html5.src.attr 
@@ -143,7 +135,6 @@
    
    
    html5.input.datetime =
-## The input element represents a typed data field, usually with a form control to allow the user to edit the data.
  element input { html5.input.datetime.attlist }	
    html5.input.datetime.attlist =  html5.global.attrs
       & html5.forms.common.attrs & attribute type { 'datetime'}
@@ -171,7 +162,6 @@
 
 
    html5.input.date =
-## The input element represents a typed data field, usually with a form control to allow the user to edit the data.
  element input { html5.input.date.attlist }
    html5.input.date.attlist = html5.global.attrs & html5.forms.common.attrs
       & attribute type { 'date' } & html5.input.autocomplete.attr? 
@@ -186,7 +176,6 @@
 
 
    html5.input.month =
-## The input element represents a typed data field, usually with a form control to allow the user to edit the data.
  element input { html5.input.month.attlist }
    html5.input.month.attlist = html5.global.attrs & html5.forms.common.attrs
       & attribute type { 'month' } & html5.input.autocomplete.attr? 
@@ -201,7 +190,6 @@
 		
 	
    html5.input.time =
-## The input element represents a typed data field, usually with a form control to allow the user to edit the data.
  element input { html5.input.time.attlist }
    html5.input.time.attlist =  html5.global.attrs & html5.forms.common.attrs
       & attribute type { 'time' } & html5.input.autocomplete.attr? 
@@ -216,7 +204,6 @@
 		
 	
    html5.input.week =
-## The input element represents a typed data field, usually with a form control to allow the user to edit the data.
  element input { html5.input.week.attlist }
    html5.input.week.attlist = html5.global.attrs & html5.forms.common.attrs
       & attribute type { 'week' } & html5.input.autocomplete.attr? 
@@ -231,7 +218,6 @@
 		
 	
    html5.input.number =
-## The input element represents a typed data field, usually with a form control to allow the user to edit the data.
  element input { input.number.attlist }
    input.number.attlist = html5.global.attrs & html5.forms.common.attrs
       & attribute type { 'number' } & html5.input.autocomplete.attr? 
@@ -246,7 +232,6 @@
 		
 	
    html5.input.range =
-## The input element represents a typed data field, usually with a form control to allow the user to edit the data.
  element input { html5.input.range.attlist }
    html5.input.range.attlist = html5.global.attrs & html5.forms.common.attrs
       & attribute type { 'range' } & html5.input.autocomplete.attr? 
@@ -296,7 +281,6 @@
 		
 	
    html5.input.tel =
-## The input element represents a typed data field, usually with a form control to allow the user to edit the data.
  element input { html5.input.tel.attlist }	
    html5.input.tel.attlist = html5.global.attrs & html5.forms.common.attrs
       & attribute type { 'tel' } & html5.input.autocomplete.attr? 
@@ -309,7 +293,6 @@
 		
 		
    html5.input.color =
-## The input element represents a typed data field, usually with a form control to allow the user to edit the data.
  element input { html5.input.color.attlist }	
    html5.input.color.attlist = html5.global.attrs & html5.forms.common.attrs
       & attribute type { 'color' } & html5.input.autocomplete.attr? 
@@ -319,7 +302,6 @@
 
 
    html5.textarea =
-## The textarea element represents a multiline plain text edit control for the element's raw value. The contents of the control represent the control's default value.
  element textarea { html5.textarea.attlist & html5.textarea.content }
    html5.textarea.attlist = html5.global.attrs & html5.forms.common.attrs 
       & html5.forms.readonly.attr? & html5.forms.maxlength.attr?
@@ -336,7 +318,6 @@
 
 		
    html5.option =
-## The option element represents an option in a select element or as part of a list of suggestions in a datalist element.
  element option { html5.option.attlist & html5.option.content }
    html5.option.attlist = html5.global.attrs & html5.forms.disabled.attr?
       & html5.option.selected.attr? & html5.option.label.attr? 
@@ -348,7 +329,6 @@
    
       
    html5.optgroup =
-## The optgroup element represents a group of option elements with a common label.
  element optgroup { html5.optgroup.attlist & html5.optgroup.content }
    html5.optgroup.attlist = html5.global.attrs & html5.optgroup.label.attr & html5.forms.disabled.attr?
    html5.optgroup.label.attr = attribute label { datatype.string }
@@ -356,7 +336,6 @@
 
 
    html5.select =
-## The select element represents a control for selecting amongst a set of options.
  element select { html5.select.attlist & html5.select.content }	
    html5.select.attlist = html5.global.attrs & html5.forms.common.attrs
       & html5.select.size.attr? & html5.select.multiple.attr?	
@@ -367,7 +346,6 @@
    
    					
    html5.button.submit =
-## The button element represents a button. If the element is not disabled, then the user agent should allow the user to activate the button.
  element button { html5.button.submit.attlist & html5.button.content }	
    html5.button.submit.attlist = html5.global.attrs & html5.forms.common.attrs
       & html5.button.submit.type.attr? & html5.button.value.attr?  
@@ -378,7 +356,6 @@
 
    	
    html5.button.reset =
-## The button element represents a button. If the element is not disabled, then the user agent should allow the user to activate the button.
  element button { html5.button.reset.attlist & html5.button.content }	
    html5.button.reset.attlist = html5.global.attrs & html5.forms.common.attrs
       & html5.button.reset.type.attr & html5.button.value.attr?   
@@ -387,7 +364,6 @@
 
 	
    html5.button.button =
-## The button element represents a button. If the element is not disabled, then the user agent should allow the user to activate the button.
  element button { html5.button.button.attlist & html5.button.content }	
    html5.button.button.attlist = html5.global.attrs & html5.forms.common.attrs
       & html5.button.button.type.attr & html5.button.value.attr?     
@@ -399,21 +375,18 @@
 
    
    html5.fieldset =
-## The fieldset element represents a set of form controls optionally grouped under a common name.
  element fieldset { html5.fieldset.attlist & html5.fieldset.content }
    html5.fieldset.attlist = html5.global.attrs & html5.forms.common.attrs
    html5.fieldset.content = html5.legend?, html5.flow.model
 
 
    html5.legend =
-## The legend element represents a caption for the rest of the contents of the legend element's parent fieldset element, if any.legend . formReturns the element's form element, if any, or null otherwise.
  element legend { html5.legend.attlist & html5.legend.content }
    html5.legend.attlist = html5.global.attrs			
    html5.legend.content = html5.phrasing.model
 		
 		
    html5.label =
-## The labelrepresents a caption in a user interface. The caption can be associated with a specific form control, known as the label element's labeled control, either using for attribute, or by putting the form control inside the label element itself.
  element label { html5.label.attlist & html5.label.content }
    html5.label.attlist = html5.global.attrs & html5.label.for.attr? 
       & html5.forms.form.attr?
@@ -422,7 +395,6 @@
    
    
    html5.meter =
-## The meter element represents a scalar measurement within a known range, or a fractional value; for example disk usage, the relevance of a query result, or the fraction of a voting population to have selected a particular candidate.
  element meter { html5.meter.attlist & html5.meter.content }
    html5.meter.attlist = html5.global.attrs & html5.meter.value.attr & html5.meter.min.attr? 
       & html5.meter.low.attr? & html5.meter.high.attr? & html5.meter.max.attr? & html5.meter.optimum.attr?		
@@ -436,7 +408,6 @@
 
 
    html5.output =
-## The output element represents the result of a calculation.
  element output { html5.output.attlist & html5.output.content }
    html5.output.attlist = html5.global.attrs & html5.forms.name.attr?
       & html5.forms.form.attr? & html5.output.for.attr?
@@ -445,14 +416,12 @@
 		
 		
    html5.datalist =
-## The datalist element represents a set of option elements that represent predefined options for other controls. The contents of the element represents fallback content for legacy user agents, intermixed with option elements that represent the predefined options. In the rendering, the datalist element represents nothing and it, along with its children, should be hidden.
  element datalist { html5.datalist.attlist & html5.datalist.content }
    html5.datalist.attlist = html5.global.attrs 
    html5.datalist.content = html5.option* & html5.phrasing.model 
 
 
    html5.keygen =
-## The keygen element represents a key pair generator control. When the control's form is submitted, the private key is stored in the local keystore, and the public key is packaged and sent to the server.
  element keygen { html5.keygen.attlist }
    html5.keygen.attlist = html5.global.attrs & html5.keygen.challenge.attr?
       & html5.keygen.keytype.attr? & html5.forms.autofocus.attr? 

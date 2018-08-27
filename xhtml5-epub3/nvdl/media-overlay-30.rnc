@@ -10,14 +10,12 @@
    smil.content = smil.head?, smil.body 
    
    smil.head =
-## The head element represents a collection of metadata for the Document.
  element head { smil.metadata? }  
    
    smil.metadata = element metadata { smil.metadata.content }    
    smil.metadata.content = anyElement*
    
    smil.body =
-## The body element represents the main content of the document.
  element body { smil.body.attlist & smil.body.content }   
    smil.body.attlist = smil.tc.attrs & epub.textref.attr?
    smil.body.content = (smil.seq | smil.par)+
@@ -34,7 +32,6 @@
    smil.text.attlist = smil.id.attr? & smil.src.attr
    
    smil.audio =
-## An audio element represents a sound or audio stream.
  element audio { smil.audio.attlist }
    smil.audio.attlist = smil.id.attr? & attribute clipBegin { datatype.smil.npt }? & attribute clipEnd { datatype.smil.npt }? & smil.src.attr
    

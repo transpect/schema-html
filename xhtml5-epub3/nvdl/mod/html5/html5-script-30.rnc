@@ -4,17 +4,15 @@
    html5.metadata.class |= html5.script
    html5.flow.class |= html5.script
    html5.phrasing.class |= html5.script
-   html5.global.attrs &= html5.global.scripting.attrs
+   html5.global.common.attrs &= html5.global.scripting.attrs
    html5.body.attlist &= html5.scripting.body.attrs
    
    html5.script = html5.script.internal | html5.script.external 
 		
 
    html5.script.internal =
-## The script element allows authors to include dynamic script and data blocks in their documents. The element does not represent content for the user.
  element script { html5.script.internal.attlist & html5.script.internal.content }
    html5.script.external =
-## The script element allows authors to include dynamic script and data blocks in their documents. The element does not represent content for the user.
  element script { html5.script.external.attlist & html5.script.external.content }	
    
    html5.script.internal.attlist &= html5.global.attrs & html5.type.mime.nocharset.attr?  

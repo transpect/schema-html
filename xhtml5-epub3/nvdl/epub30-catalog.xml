@@ -23,7 +23,10 @@
                         
    <system systemId="http://www.idpf.org/epub/30/schema/epub-xhtml-30.rnc"
            uri="epub-xhtml-30.rnc"/>
-                        
+        
+   <system systemId="http://www.idpf.org/epub/30/schema/epub-xhtml-30-no-ns.rnc"
+           uri="epub-xhtml-30-no-ns.rnc"/>    
+        
    <system systemId="http://www.idpf.org/epub/30/schema/epub-xhtml-30.sch"
            uri="epub-xhtml-30.sch"/>
                         

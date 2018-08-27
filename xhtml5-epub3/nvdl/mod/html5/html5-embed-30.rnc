@@ -11,10 +11,8 @@
 
    
    html5.video.flow =
-## A video element is used for playing videos or movies, and audio files with captions.
  element video { html5.video.attlist & html5.video.flow.content }
    html5.video.phrasing =
-## A video element is used for playing videos or movies, and audio files with captions.
  element video { html5.video.attlist & html5.video.phrasing.content }
    html5.video.attlist &= html5.global.attrs & html5.av.common.attrs & html5.video.poster.attr? & html5.dimension.attrs
    html5.video.poster.attr = attribute poster { datatype.html5.URL.spaces }	   
@@ -24,10 +22,8 @@
 
 
    html5.audio.flow =
-## An audio element represents a sound or audio stream.
  element audio { html5.audio.attlist & html5.audio.flow.content }
    html5.audio.phrasing =
-## An audio element represents a sound or audio stream.
  element audio { html5.audio.attlist & html5.audio.phrasing.content }
    html5.audio.attlist &= html5.global.attrs & html5.av.common.attrs   		
    html5.audio.flow.content = html5.av.source, html5.track*, html5.flow.model
@@ -41,7 +37,6 @@
 		
 		
    html5.track =
-## The track element allows authors to specify explicit external timed text tracks for media elements. It does not represent anything on its own.
  element track { html5.track.attlist }	
    html5.track.attlist &= html5.global.attrs & html5.track.kind.attr? & html5.src.attr & html5.track.default.attr? 
       & html5.track.srclang.attr? & html5.track.label.attr?
@@ -60,7 +55,6 @@
    html5.av.muted.attr = attribute muted { 'muted' | '' }
 				
    html5.source =
-## The source element allows authors to specify multiple alternative media resources for media elements. It does not represent anything on its own.
  element source { html5.source.attlist }
    html5.source.attlist &= html5.global.attrs & html5.src.attr & html5.type.mime.attr? & html5.media.attr?
 
@@ -68,7 +62,6 @@
    
    
    html5.img =
-## An img element represents an image.
  element img { html5.img.attlist }
    html5.img.attlist &= html5.global.attrs & html5.dimension.attrs & html5.src.attr & html5.alt.attr? & html5.usemap.attr? & html5.img.ismap.attr?    
    html5.img.ismap.attr = attribute ismap { 'ismap' | '' }
@@ -76,7 +69,6 @@
    
       
    html5.embed =
-## The embed element represents an integration point for an external (typically non-HTML) application or interactive content.
  element embed { html5.embed.attlist }
    html5.embed.attlist &= html5.global.attrs & html5.src.attr? & html5.type.mime.attr? & html5.dimension.attrs & html5.embed.attrs.other*		
    html5.embed.attrs.other = empty #TODO		
@@ -84,20 +76,18 @@
 
 
    html5.object.flow =
-## The object element can represent an external resource, which, depending on the type of the resource, will either be treated as an image, as a nested browsing context, or as an external resource to be processed by a plugin.
  element object { html5.object.flow.content & html5.object.attlist }
    html5.object.phrasing =
-## The object element can represent an external resource, which, depending on the type of the resource, will either be treated as an image, as a nested browsing context, or as an external resource to be processed by a plugin.
  element object { html5.object.phrasing.content & html5.object.attlist }
    html5.object.attlist &= html5.global.attrs & (( html5.object.data.attr & html5.type.mime.attr? ) | html5.type.mime.attr ) 
       & html5.dimension.attrs & html5.usemap.attr? & html5.name.context.attr? & html5.forms.form.attr?
    html5.object.data.attr = attribute data { datatype.html5.URL.spaces }
+   html5.object.typemustmatch.attr = attribute typemustmatch { 'typemustmatch' | '' }
    
    html5.object.flow.content = html5.param*, html5.flow.model
    html5.object.phrasing.content = html5.param*, html5.phrasing.model
 
    html5.param =
-## The param element defines parameters for plugins invoked by object elements. It does not represent anything on its own.
  element param { html5.param.attlist }
    html5.param.attlist &= html5.global.attrs & html5.param.name.attr & html5.param.value.attr
    html5.param.name.attr = attribute name { string }
@@ -105,10 +95,8 @@
 
 
    html5.canvas.flow =
-## The canvas element provides scripts with a resolution-dependent bitmap canvas, which can be used for rendering graphs, game graphics, or other visual images on the fly.
  element canvas { html5.canvas.attlist & html5.canvas.flow.content }
    html5.canvas.phrasing =
-## The canvas element provides scripts with a resolution-dependent bitmap canvas, which can be used for rendering graphs, game graphics, or other visual images on the fly.
  element canvas { html5.canvas.attlist & html5.canvas.phrasing.content }	
    html5.canvas.attlist = html5.global.attrs & html5.dimension.attrs
    html5.canvas.flow.content	= html5.flow.model	
@@ -116,20 +104,17 @@
 
 
    html5.map.flow =
-## The map element, in conjunction with any area element descendants, defines an image map. The element represents its children.
  element map { html5.map.flow.content & html5.map.attlist }
    html5.map.phrasing  =
-## The map element, in conjunction with any area element descendants, defines an image map. The element represents its children.
  element map { html5.map.phrasing.content & html5.map.attlist }
    html5.map.attlist &= html5.global.attrs & html5.name.id.attr
    html5.map.flow.content = html5.flow.model
    html5.map.phrasing.content = html5.phrasing.model
 
 
-   html5.area =
-## The area element represents either a hyperlink with some text and a corresponding area on an image map, or a dead area on an image map.
- element area { html5.area.attlist }
-   html5.area.attlist &= html5.global.attrs & (html5.alt.attr & html5.href.attr)? & html5.target.attr? & html5.rel.attr? 
+   html5.area = 
+   element area { html5.area.attlist }
+   html5.area.attlist &= html5.global.common.attrs & html5.global.xml.attrs & (html5.alt.attr & html5.href.attr)? & html5.target.attr? & html5.rel.attr? 
       & html5.media.attr? & html5.hreflang.attr? & html5.type.mime.attr? & html5.area.shape.attrs?
 		
    html5.area.shape.attrs =
@@ -149,7 +134,6 @@
 
 
    html5.iframe =
-## The iframe element represents a nested browsing context.
  element iframe { html5.iframe.attlist & html5.iframe.content}
    html5.iframe.attlist &= html5.global.attrs & html5.src.attr? & html5.name.context.attr? 
       & html5.dimension.attrs & html5.iframe.sandbox.attr? & html5.iframe.seamless.attr? 
