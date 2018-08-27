@@ -1,8 +1,11 @@
 <?xml version="1.0"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+
+  <rewriteURI uriStartString="http://transpect.io/schema-html/" rewritePrefix="../"/>
   
   <nextCatalog catalog="../xhtml1/xmlcatalog/catalog.xml"/>
   <nextCatalog catalog="../xhtml11/xmlcatalog/catalog.xml"/>
+  <nextCatalog catalog="../xhtml5/xmlcatalog/catalog.xml"/>
   <nextCatalog catalog="../xhtml5-epub3/xmlcatalog/catalog.xml"/>
 
 </catalog>
