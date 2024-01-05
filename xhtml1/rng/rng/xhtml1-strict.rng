@@ -1,0 +1,2848 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE grammar SYSTEM "relaxng.dtd">
+<grammar ns="http://www.w3.org/1999/xhtml" xml:lang="en"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <a:documentation>
+    XHTML 1.0 (Second Edition) Strict in RELAX NG
+
+    This is the same as HTML 4 Strict except for
+    changes due to the differences between XML and SGML.
+
+    Namespace = http://www.w3.org/1999/xhtml
+
+    For further information, see: http://www.w3.org/TR/xhtml1
+
+    Copyright (c) 1998-2004 W3C (MIT, ERCIM, Keio),
+    All Rights Reserved. 
+
+    The DTD version is identified by the PUBLIC and SYSTEM identifiers:
+
+    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+
+    $Id: xhtml1-strict.rng,v 1.9 2004/07/28 09:21:25 mimasa Exp $
+  </a:documentation>
+
+  <start combine="choice">
+    <a:documentation>
+      The root element is "html".
+    </a:documentation>
+    <ref name="html"/>
+  </start>
+
+  <a:documentation>
+    ================ Character mnemonic entities =========================
+
+    ================== Imported Names ====================================
+  </a:documentation>
+
+  <define name="ContentType">
+    <a:documentation>
+      media type, as per [RFC2045]
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="ContentTypes">
+    <a:documentation>
+      comma-separated list of media types, as per [RFC2045]
+    </a:documentation>
+    <data type="string"/>
+  </define>
+
+  <define name="Charset">
+    <a:documentation>
+      a character encoding, as per [RFC2045]
+    </a:documentation>
+    <data type="string">
+      <param name="pattern">\S+</param>
+    </data>
+  </define>
+
+  <define name="Charsets">
+    <a:documentation>
+      a space separated list of character encodings, as per [RFC2045]
+    </a:documentation>
+    <list>
+      <oneOrMore>
+        <ref name="Charset"/>
+      </oneOrMore>
+     </list>
+  </define>
+
+  <define name="LanguageCode">
+    <a:documentation>
+      a language code, as per [RFC3066]
+    </a:documentation>
+    <data type="language"/>
+  </define>
+
+  <define name="Character">
+    <a:documentation>
+      a single character, as per section 2.2 of [XML]
+    </a:documentation>
+    <data type="string">
+      <param name="length">1</param>
+    </data>
+  </define>
+
+  <define name="Number">
+    <a:documentation>
+      one or more digits
+    </a:documentation>
+    <data type="nonNegativeInteger">
+      <param name="pattern">[0-9]*</param>
+    </data>
+  </define>
+
+  <define name="tabindexNumber">
+    <data type="nonNegativeInteger">
+      <param name="pattern">[0-9]*</param>
+      <param name="minInclusive">0</param>
+      <param name="maxInclusive">32767</param>
+    </data>
+  </define>
+
+  <define name="LinkTypes">
+    <a:documentation>
+      space-separated list of link types
+    </a:documentation>
+    <data type="NMTOKENS"/>
+  </define>
+
+  <define name="MediaDesc">
+    <a:documentation>
+      single or comma-separated list of media descriptors
+    </a:documentation>
+    <data type="string">
+      <param name="pattern">[^,]+(,\s*[^,]+)*</param>
+    </data>
+  </define>
+
+  <define name="URI">
+    <a:documentation>
+      a Uniform Resource Identifier, see [RFC2396]
+    </a:documentation>
+    <data type="anyURI"/>
+  </define>
+
+  <define name="UriList">
+    <a:documentation>
+      a space separated list of Uniform Resource Identifiers
+    </a:documentation>
+    <list>
+      <zeroOrMore>
+        <data type="anyURI"/>
+      </zeroOrMore>
+    </list>
+  </define>
+
+  <define name="Datetime">
+    <a:documentation>
+      date and time information. ISO date format
+    </a:documentation>
+    <data type="dateTime"/>
+  </define>
+
+  <define name="Script">
+    <a:documentation>
+      script expression
+    </a:documentation>
+    <text/>
+  </define>
+
+  <define name="StyleSheet">
+    <a:documentation>
+      style sheet data
+    </a:documentation>
+    <text/>
+  </define>
+
+  <define name="Text">
+    <a:documentation>
+      used for titles etc.
+    </a:documentation>
+    <text/>
+  </define>
+
+  <define name="Length">
+    <a:documentation>
+      nn for pixels or nn% for percentage length
+    </a:documentation>
+    <data type="string">
+      <param name="pattern">(\d+|\d+(\.\d+)?%)</param>
+    </data>
+  </define>
+
+  <define name="MultiLength">
+    <a:documentation>
+      pixel, percentage, or relative
+    </a:documentation>
+    <data type="string">
+      <param name="pattern">(\d+|\d+(\.\d+)?%)|[1-9]?(\d+)?\*</param>
+    </data>
+  </define>
+
+  <define name="Pixels">
+    <a:documentation>
+      integer representing length in pixels
+    </a:documentation>
+    <data type="nonNegativeInteger"/>
+  </define>
+
+  <a:documentation>
+    these are used for image maps
+  </a:documentation>
+
+  <define name="Shape">
+    <choice>
+      <value>rect</value>
+      <value>circle</value>
+      <value>poly</value>
+      <value>default</value>
+    </choice>
+  </define>
+
+  <define name="Coords">
+    <a:documentation>
+      comma separated list of lengths
+    </a:documentation>
+    <data type="string">
+      <param name="pattern">(\d+|\d+(\.\d+)?%)(,\s*(\d+|\d+(\.\d+)?%))*</param>
+    </data>
+  </define>
+
+  <a:documentation>
+   =================== Generic Attributes ===============================
+  </a:documentation>
+
+  <define name="coreattrs">
+    <a:documentation>
+      core attributes common to most elements
+      id       document-wide unique id
+      class    space separated list of classes
+      style    associated style info
+      title    advisory title/amplification
+    </a:documentation>
+    <optional>
+      <attribute name="id">
+        <data type="ID"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="class">
+        <data type="NMTOKENS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="title">
+        <ref name="Text"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="i18n">
+    <a:documentation>
+      internationalization attributes
+      lang        language code (backwards compatible)
+      xml:lang    language code (as per XML 1.0 spec)
+      dir         direction for weak/neutral text
+    </a:documentation>
+    <optional>
+      <attribute name="lang">
+        <ref name="LanguageCode"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xml:lang">
+        <ref name="LanguageCode"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dir">
+        <choice>
+          <value>ltr</value>
+          <value>rtl</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="events">
+    <a:documentation>
+     attributes for common UI events
+     onclick     a pointer button was clicked
+     ondblclick  a pointer button was double clicked
+     onmousedown a pointer button was pressed down
+     onmouseup   a pointer button was released
+     onmousemove a pointer was moved onto the element
+     onmouseout  a pointer was moved away from the element
+     onkeypress  a key was pressed and released
+     onkeydown   a key was pressed down
+     onkeyup     a key was released
+    </a:documentation>
+    <optional>
+      <attribute name="onclick">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="ondblclick">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onmousedown">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onmouseup">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onmouseover">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onmousemove">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onmouseout">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onkeypress">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onkeydown">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onkeyup">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="focus">
+    <a:documentation>
+      attributes for elements that can get the focus
+      accesskey   accessibility key character
+      tabindex    position in tabbing order
+      onfocus     the element got the focus
+      onblur      the element lost the focus
+    </a:documentation>
+    <optional>
+      <attribute name="accesskey">
+        <ref name="Character"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tabindex">
+        <ref name="tabindexNumber"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onfocus">
+       <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onblur">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="attrs">
+    <ref name="coreattrs"/>
+    <ref name="i18n"/>
+    <ref name="events"/>
+  </define>
+
+  <a:documentation>
+    =================== Text Elements ====================================
+  </a:documentation>
+
+  <define name="special.pre">
+    <choice>
+      <ref name="br"/>
+      <ref name="span"/>
+      <ref name="bdo"/>
+      <ref name="map"/>
+    </choice>
+  </define>
+
+  <define name="special">
+    <choice>
+      <ref name="special.pre"/>
+      <ref name="object"/>
+      <ref name="img"/>
+    </choice>
+  </define>
+
+  <define name="fontstyle">
+    <choice>
+      <ref name="tt"/>
+      <ref name="i"/>
+      <ref name="b"/>
+      <ref name="big"/>
+      <ref name="small"/>
+    </choice>
+  </define>
+
+  <define name="phrase">
+    <choice>
+      <ref name="em"/>
+      <ref name="strong"/>
+      <ref name="dfn"/>
+      <ref name="code"/>
+      <ref name="q"/>
+      <ref name="samp"/>
+      <ref name="kbd"/>
+      <ref name="var"/>
+      <ref name="cite"/>
+      <ref name="abbr"/>
+      <ref name="acronym"/>
+      <ref name="sub"/>
+      <ref name="sup"/>
+    </choice>
+  </define>
+
+  <define name="edit-inline">
+    <choice>
+      <ref name="ins-inline"/>
+      <ref name="del-inline"/>
+    </choice>
+  </define>
+
+  <define name="inline.forms">
+    <choice>
+      <ref name="input"/>
+      <ref name="select"/>
+      <ref name="textarea"/>
+      <ref name="label"/>
+      <ref name="button"/>
+    </choice>
+  </define>
+
+  <define name="misc.inline">
+    <a:documentation>
+      these can occur at block or inline level
+    </a:documentation>
+    <choice>
+<!--
+      <ref name="ins"/>
+      <ref name="del"/>
+-->
+      <ref name="script"/>
+    </choice>
+  </define>
+
+  <define name="misc">
+    <a:documentation>
+      these can only occur at block level
+    </a:documentation>
+    <choice>
+      <ref name="noscript"/>
+      <ref name="misc.inline"/>
+    </choice>
+  </define>
+
+  <define name="inline">
+    <choice>
+      <ref name="a"/>
+      <ref name="special"/>
+      <ref name="fontstyle"/>
+      <ref name="phrase"/>
+      <ref name="edit-inline"/>
+      <ref name="inline.forms"/>
+    </choice>
+  </define>
+
+  <define name="Inline">
+    <a:documentation>
+      "Inline" covers inline or "text-level" elements
+    </a:documentation>
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="inline"/>
+        <ref name="misc.inline"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <a:documentation>
+    ================== Block level elements ==============================
+  </a:documentation>
+
+  <define name="heading">
+    <choice>
+      <ref name="h1"/>
+      <ref name="h2"/>
+      <ref name="h3"/>
+      <ref name="h4"/>
+      <ref name="h5"/>
+      <ref name="h6"/>
+    </choice>
+  </define>
+
+  <define name="lists">
+    <choice>
+      <ref name="ul"/>
+      <ref name="ol"/>
+      <ref name="dl"/>
+    </choice>
+  </define>
+
+  <define name="blocktext">
+    <choice>
+      <ref name="pre"/>
+      <ref name="hr"/>
+      <ref name="blockquote"/>
+      <ref name="address"/>
+    </choice>
+  </define>
+
+  <define name="edit-block">
+    <choice>
+      <ref name="ins-block"/>
+      <ref name="del-block"/>
+    </choice>
+  </define>
+
+  <define name="block">
+    <choice>
+      <ref name="p"/>
+      <ref name="heading"/>
+      <ref name="div"/>
+      <ref name="lists"/>
+      <ref name="blocktext"/>
+      <ref name="edit-block"/>
+      <ref name="fieldset"/>
+      <ref name="table"/>
+    </choice>
+  </define>
+
+  <define name="Block">
+    <zeroOrMore>
+      <choice>
+        <ref name="block"/>
+        <ref name="form"/>
+        <ref name="misc"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="Flow">
+    <a:documentation>
+      "Flow" mixes block and inline and is used for list items etc.
+    </a:documentation>
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="block"/>
+        <ref name="form"/>
+        <ref name="inline"/>
+        <ref name="misc"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <a:documentation>
+    ================== Content models for exclusions =====================
+  </a:documentation>
+
+  <define name="a.content">
+    <a:documentation>
+      a elements use "Inline" excluding a
+    </a:documentation>
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="special"/>
+        <ref name="fontstyle"/>
+        <ref name="phrase"/>
+        <ref name="inline.forms"/>
+        <ref name="misc.inline"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="pre.content">
+    <a:documentation>
+      pre uses "Inline" excluding big, small, sup or sup
+    </a:documentation>
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="a"/>
+        <ref name="fontstyle"/>
+        <ref name="phrase"/>
+        <ref name="special.pre"/>
+        <ref name="misc.inline"/>
+        <ref name="inline.forms"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="form.content">
+    <a:documentation>
+      form uses %Block; excluding form
+    </a:documentation>
+    <zeroOrMore>
+      <choice>
+        <ref name="block"/>
+        <ref name="misc"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="button.content">
+    <a:documentation>
+      button uses %Flow; but excludes a, form and form controls
+    </a:documentation>
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="p"/>
+        <ref name="heading"/>
+        <ref name="div"/>
+        <ref name="lists"/>
+        <ref name="blocktext"/>
+        <ref name="table"/>
+        <ref name="special"/>
+        <ref name="fontstyle"/>
+        <ref name="phrase"/>
+        <ref name="misc"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <a:documentation>
+    ================ Document Structure ==================================
+  </a:documentation>
+
+  <define name="html">
+    <a:documentation>
+      the namespace URI designates the document profile
+    </a:documentation>
+    <element name="html">
+      <ref name="html.attlist"/>
+      <ref name="head"/>
+      <ref name="body"/>
+    </element>
+  </define>
+
+  <define name="html.attlist" combine="interleave">
+    <ref name="i18n"/>
+    <optional>
+      <attribute name="id">
+        <data type="ID"/>
+      </attribute>
+    </optional>
+    <empty/>
+  </define>
+
+  <a:documentation>
+    ================ Document Head =======================================
+  </a:documentation>
+
+  <define name="head.misc">
+    <zeroOrMore>
+      <choice>
+        <ref name="script"/>
+        <ref name="style"/>
+        <ref name="meta"/>
+        <ref name="link"/>
+        <ref name="object"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+<!--
+  <define name="head">
+    <a:documentation>
+      content model is "head.misc" combined with a single
+      title and an optional base element in any order
+    </a:documentation>
+    <element name="head">
+      <ref name="head.attlist"/>
+      <ref name="head.misc"/>
+      <choice>
+        <group>
+          <ref name="title"/>
+          <ref name="head.misc"/>
+          <optional>
+            <ref name="base"/>
+            <ref name="head.misc"/>
+          </optional>
+        </group>
+        <group>
+          <ref name="base"/>
+          <ref name="head.misc"/>
+          <ref name="title"/>
+          <ref name="head.misc"/>
+        </group>
+      </choice>
+    </element>
+  </define>
+-->
+
+  <define name="head">
+    <a:documentation>
+      content model is "head.misc" combined with a single
+      title and an optional base element in any order
+    </a:documentation>
+    <element name="head">
+      <ref name="head.attlist"/>
+      <interleave>
+        <ref name="title"/>
+        <optional>
+          <ref name="base"/>
+        </optional>
+        <ref name="head.misc"/>
+      </interleave>
+    </element>
+  </define>
+
+  <define name="head.attlist" combine="interleave">
+    <ref name="i18n"/>
+    <optional>
+      <attribute name="id">
+        <data type="ID"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="profile">
+        <ref name="UriList"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="title">
+    <a:documentation>
+      The title element is not considered part of the flow of text.
+      It should be displayed, for example as the page header or
+      window title. Exactly one title is required per document.
+    </a:documentation>
+    <element name="title">
+      <ref name="title.attlist"/>
+      <text/>
+    </element>
+  </define>
+
+  <define name="title.attlist" combine="interleave">
+    <ref name="i18n"/>
+    <optional>
+      <attribute name="id">
+        <data type="ID"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="base">
+    <a:documentation>
+      document base URI
+    </a:documentation>
+    <element name="base">
+      <ref name="base.attlist"/>
+      <empty/>
+    </element>
+  </define>
+
+  <define name="base.attlist" combine="interleave">
+    <attribute name="href">
+      <ref name="URI"/>
+    </attribute>
+    <optional>
+      <attribute name="id">
+        <data type="ID"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="meta">
+    <a:documentation>
+      generic metainformation
+    </a:documentation>
+    <element name="meta">
+      <ref name="meta.attlist"/>
+      <empty/>
+    </element>
+  </define>
+
+  <define name="meta.attlist" combine="interleave">
+    <ref name="i18n"/>
+    <optional>
+      <attribute name="id">
+        <data type="ID"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="http-equiv"/>
+    </optional>
+    <optional>
+      <attribute name="name"/>
+    </optional>
+    <attribute name="content"/>
+    <optional>
+      <attribute name="scheme"/>
+    </optional>
+  </define>
+
+  <define name="link">
+    <a:documentation>
+      Relationship values can be used in principle:
+
+       a) for document specific toolbars/menus when used
+          with the link element in document head e.g.
+          start, contents, previous, next, index, end, help
+       b) to link to a separate style sheet (rel="stylesheet")
+       c) to make a link to a script (rel="script")
+       d) by stylesheets to control how collections of
+          html nodes are rendered into printed documents
+       e) to make a link to a printable version of this document
+          e.g. a PostScript or PDF version (rel="alternate" media="print")
+    </a:documentation>
+    <element name="link">
+      <ref name="link.attlist"/>
+      <empty/>
+    </element>
+  </define>
+
+  <define name="link.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <optional>
+      <attribute name="charset">
+        <ref name="Charset"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="href">
+        <ref name="URI"/>
+      </attribute>
+      <optional>
+        <attribute name="hreflang">
+          <ref name="LanguageCode"/>
+        </attribute>
+      </optional>
+    </optional>
+    <optional>
+      <attribute name="type">
+        <ref name="ContentType"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rel">
+        <ref name="LinkTypes"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rev">
+        <ref name="LinkTypes"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="media">
+        <ref name="MediaDesc"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="style">
+    <a:documentation>
+      style info, which may include CDATA sections
+    </a:documentation>
+    <element name="style">
+      <ref name="style.attlist"/>
+      <text/>
+    </element>
+  </define>
+
+  <define name="style.attlist" combine="interleave">
+    <ref name="i18n"/>
+    <optional>
+      <attribute name="id">
+        <data type="ID"/>
+      </attribute>
+    </optional>
+    <attribute name="type">
+      <ref name="ContentType"/>
+    </attribute>
+    <optional>
+      <attribute name="media">
+        <ref name="MediaDesc"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="title">
+        <ref name="Text"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xml:space" a:defaultValue="preserve">
+        <value>preserve</value>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="script">
+    <a:documentation>
+      script statements, which may include CDATA sections
+    </a:documentation>
+    <element name="script">
+      <ref name="script.attlist"/>
+      <text/>
+    </element>
+  </define>
+
+  <define name="script.attlist" combine="interleave">
+    <optional>
+      <attribute name="id">
+        <data type="ID"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="charset">
+        <ref name="Charset"/>
+      </attribute>
+    </optional>
+    <attribute name="type">
+      <ref name="ContentType"/>
+    </attribute>
+    <optional>
+      <attribute name="src">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="defer">
+        <choice>
+          <value>defer</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xml:space" a:defaultValue="preserve">
+        <value>preserve</value>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="noscript">
+    <a:documentation>
+      alternate content container for non script-based rendering
+    </a:documentation>
+    <element name="noscript">
+      <ref name="noscript.attlist"/>
+      <ref name="Block"/>
+    </element>
+  </define>
+
+  <define name="noscript.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <a:documentation>
+    =================== Document Body ====================================
+  </a:documentation>
+
+  <define name="body">
+    <element name="body">
+      <ref name="body.attlist"/>
+      <ref name="Block"/>
+    </element>
+  </define>
+
+  <define name="body.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <optional>
+      <attribute name="onload">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onunload">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="div">
+    <a:documentation>
+      generic language/style container
+    </a:documentation>
+    <element name="div">
+      <ref name="div.attlist"/>
+      <ref name="Flow"/>
+    </element>
+  </define>
+
+  <define name="div.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <a:documentation>
+    =================== Paragraphs =======================================
+  </a:documentation>
+
+  <define name="p">
+    <element name="p">
+      <ref name="p.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+  <define name="p.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <a:documentation>
+    =================== Headings =========================================
+
+    There are six levels of headings from h1 (the most important)
+    to h6 (the least important).
+  </a:documentation>
+
+  <define name="h1">
+    <element name="h1">
+      <ref name="h1.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="h1.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="h2">
+    <element name="h2">
+      <ref name="h2.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="h2.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="h3">
+    <element name="h3">
+      <ref name="h3.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="h3.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="h4">
+    <element name="h4">
+      <ref name="h4.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="h4.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="h5">
+    <element name="h5">
+      <ref name="h5.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="h5.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="h6">
+    <element name="h6">
+      <ref name="h6.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="h6.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <a:documentation>
+    =================== Lists ============================================
+  </a:documentation>
+
+  <define name="ul">
+    <a:documentation>
+      Unordered list
+    </a:documentation>
+    <element name="ul">
+      <ref name="ul.attlist"/>
+      <oneOrMore>
+        <ref name="li"/>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <define name="ul.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="ol">
+    <a:documentation>
+      Ordered (numbered) list
+    </a:documentation>
+    <element name="ol">
+      <ref name="ol.attlist"/>
+      <oneOrMore>
+        <ref name="li"/>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <define name="ol.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="li">
+    <a:documentation>
+      list item
+    </a:documentation>
+    <element name="li">
+      <ref name="li.attlist"/>
+      <ref name="Flow"/>
+    </element>
+  </define>
+
+  <define name="li.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="dl">
+    <a:documentation>
+      definition lists - dt for term, dd for its definition
+    </a:documentation>
+    <element name="dl">
+      <ref name="dl.attlist"/>
+      <oneOrMore>
+        <choice>
+          <ref name="dt"/>
+          <ref name="dd"/>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <define name="dl.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="dt">
+    <element name="dt">
+      <ref name="dt.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="dt.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="dd">
+    <element name="dd">
+      <ref name="dd.attlist"/>
+      <ref name="Flow"/>
+    </element>
+  </define>
+
+  <define name="dd.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <a:documentation>
+    =================== Address ==========================================
+  </a:documentation>
+
+  <define name="address">
+    <a:documentation>
+      information on author
+    </a:documentation>
+    <element name="address">
+      <ref name="address.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="address.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <a:documentation>
+    =================== Horizontal Rule ==================================
+  </a:documentation>
+
+  <define name="hr">
+    <element name="hr">
+      <ref name="hr.attlist"/>
+      <empty/>
+    </element>
+  </define>
+
+  <define name="hr.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <a:documentation>
+    =================== Preformatted Text ================================
+  </a:documentation>
+
+  <define name="pre">
+    <a:documentation>
+      content is "Inline" excluding "img|object|big|small|sub|sup"
+    </a:documentation>
+    <element name="pre">
+      <ref name="pre.attlist"/>
+      <ref name="pre.content"/>
+    </element>
+  </define>
+
+  <define name="pre.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <optional>
+      <attribute name="xml:space" a:defaultValue="preserve">
+        <value>preserve</value>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    =================== Block-like Quotes ================================
+  </a:documentation>
+
+  <define name="blockquote">
+    <element name="blockquote">
+      <ref name="blockquote.attlist"/>
+      <ref name="Block"/>
+    </element>
+  </define>
+
+  <define name="blockquote.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <optional>
+      <attribute name="cite">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    =================== Inserted/Deleted Text ============================
+
+    ins/del are allowed in block and inline content, but its
+    inappropriate to include block content within an ins element
+    occurring in inline content.
+  </a:documentation>
+
+<!--
+  <define name="ins">
+    <element name="ins">
+      <ref name="ins.attlist"/>
+      <ref name="Flow"/>
+    </element>
+  </define>
+-->
+
+  <define name="ins-block">
+    <element name="ins">
+      <ref name="ins.attlist"/>
+      <ref name="Flow"/>
+    </element>
+  </define>
+
+  <define name="ins-inline">
+    <element name="ins">
+      <ref name="ins.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="ins.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <optional>
+      <attribute name="cite">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="datetime">
+        <ref name="Datetime"/>
+      </attribute>
+    </optional>
+  </define>
+
+<!--
+  <define name="del">
+    <element name="del">
+      <ref name="del.attlist"/>
+      <ref name="Flow"/>
+    </element>
+  </define>
+-->
+
+  <define name="del-block">
+    <element name="del">
+      <ref name="del.attlist"/>
+      <ref name="Flow"/>
+    </element>
+  </define>
+
+  <define name="del-inline">
+    <element name="del">
+      <ref name="del.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="del.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <optional>
+      <attribute name="cite">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="datetime">
+        <ref name="Datetime"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    ================== The Anchor Element ================================
+  </a:documentation>
+
+  <define name="a">
+    <a:documentation>
+      content is "Inline" except that anchors shouldn't be nested
+    </a:documentation>
+    <element name="a">
+      <ref name="a.attlist"/>
+      <ref name="a.content"/>
+    </element>
+  </define>
+
+  <define name="a.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <ref name="focus"/>
+    <optional>
+      <attribute name="charset">
+        <ref name="Charset"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="type">
+        <ref name="ContentType"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="name">
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="href">
+        <ref name="URI"/>
+      </attribute>
+      <optional>
+        <attribute name="hreflang">
+          <ref name="LanguageCode"/>
+        </attribute>
+      </optional>
+    </optional>
+    <optional>
+      <attribute name="rel">
+        <ref name="LinkTypes"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rev">
+        <ref name="LinkTypes"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="shape" a:defaultValue="rect">
+        <ref name="Shape"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="coords">
+        <ref name="Coords"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    ===================== Inline Elements ================================
+  </a:documentation>
+
+  <define name="span">
+    <a:documentation>
+      generic language/style container
+    </a:documentation>
+    <element name="span">
+      <ref name="span.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="span.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="bdo">
+    <a:documentation>
+      I18N BiDi over-ride
+    </a:documentation>
+    <element name="bdo">
+      <ref name="bdo.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="bdo.attlist" combine="interleave">
+    <ref name="coreattrs"/>
+    <ref name="events"/>
+    <optional>
+      <attribute name="lang">
+        <ref name="LanguageCode"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="xml:lang">
+        <ref name="LanguageCode"/>
+      </attribute>
+    </optional>
+    <attribute name="dir">
+      <choice>
+        <value>ltr</value>
+        <value>rtl</value>
+      </choice>
+    </attribute>
+  </define>
+
+  <define name="br">
+    <a:documentation>
+      forced line break
+    </a:documentation>
+    <element name="br">
+      <ref name="br.attlist"/>
+      <empty/>
+    </element>
+  </define>
+
+  <define name="br.attlist" combine="interleave">
+    <ref name="coreattrs"/>
+  </define>
+
+  <define name="em">
+    <a:documentation>
+      emphasis
+    </a:documentation>
+    <element name="em">
+      <ref name="em.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="em.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="strong">
+    <a:documentation>
+      strong emphasis
+    </a:documentation>
+    <element name="strong">
+      <ref name="strong.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="strong.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="dfn">
+    <a:documentation>
+      definitional
+    </a:documentation>
+    <element name="dfn">
+      <ref name="dfn.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="dfn.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="code">
+    <a:documentation>
+      program code
+    </a:documentation>
+    <element name="code">
+      <ref name="code.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="code.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="samp">
+    <a:documentation>
+      sample
+    </a:documentation>
+    <element name="samp">
+      <ref name="samp.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="samp.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="kbd">
+    <a:documentation>
+      something user would type
+    </a:documentation>
+    <element name="kbd">
+      <ref name="kbd.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="kbd.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="var">
+    <a:documentation>
+      variable
+    </a:documentation>
+    <element name="var">
+      <ref name="var.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="var.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="cite">
+    <a:documentation>
+      citation
+    </a:documentation>
+    <element name="cite">
+      <ref name="cite.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="cite.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="abbr">
+    <a:documentation>
+      abbreviation
+    </a:documentation>
+    <element name="abbr">
+      <ref name="abbr.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="abbr.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="acronym">
+    <a:documentation>
+      acronym
+    </a:documentation>
+    <element name="acronym">
+      <ref name="acronym.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="acronym.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="q">
+    <a:documentation>
+      inlined quote
+    </a:documentation>
+    <element name="q">
+      <ref name="q.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="q.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <optional>
+      <attribute name="cite">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="sub">
+    <a:documentation>
+      subscript
+    </a:documentation>
+    <element name="sub">
+      <ref name="sub.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="sub.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="sup">
+    <a:documentation>
+      superscript
+    </a:documentation>
+    <element name="sup">
+      <ref name="sup.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="sup.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="tt">
+    <a:documentation>
+      fixed pitch font
+    </a:documentation>
+    <element name="tt">
+      <ref name="tt.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="tt.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="i">
+    <a:documentation>
+      italic font
+    </a:documentation>
+    <element name="i">
+      <ref name="i.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="i.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="b">
+    <a:documentation>
+      bold font
+    </a:documentation>
+    <element name="b">
+      <ref name="b.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="b.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="big">
+    <a:documentation>
+      bigger font
+    </a:documentation>
+    <element name="big">
+      <ref name="big.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="big.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="small">
+    <a:documentation>
+      smaller font
+    </a:documentation>
+    <element name="small">
+      <ref name="small.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="small.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <a:documentation>
+    ==================== Object ======================================
+
+    object is used to embed objects as part of HTML pages.
+    param elements should precede other content. Parameters
+    can also be expressed as attribute/value pairs on the
+    object element itself when brevity is desired.
+  </a:documentation>
+
+  <define name="object">
+    <element name="object">
+      <ref name="object.attlist"/>
+      <zeroOrMore>
+        <ref name="param"/>
+      </zeroOrMore>
+      <ref name="Flow"/>
+    </element>
+  </define>
+
+  <define name="object.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <optional>
+      <attribute name="declare">
+        <choice>
+          <value>declare</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="classid">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="codebase">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="data">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="type">
+        <ref name="ContentType"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="codetype">
+        <ref name="ContentType"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="archive">
+        <ref name="UriList"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="standby">
+        <ref name="Text"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="height">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="width">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="usemap">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="name">
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tabindex">
+        <ref name="tabindexNumber"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="param">
+    <a:documentation>
+      param is used to supply a named property value.
+      In XML it would seem natural to follow RDF and support an
+      abbreviated syntax where the param elements are replaced
+      by attribute value pairs on the object start tag.
+    </a:documentation>
+    <element name="param">
+      <ref name="param.attlist"/>
+      <empty/>
+    </element>
+  </define>
+
+  <define name="param.attlist" combine="interleave">
+    <optional>
+      <attribute name="id">
+        <data type="ID"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="name"/>
+    </optional>
+    <optional>
+      <attribute name="value"/>
+    </optional>
+    <optional>
+      <attribute name="valuetype" a:defaultValue="data">
+        <choice>
+          <value>data</value>
+          <value>ref</value>
+          <value>object</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="type">
+        <ref name="ContentType"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    =================== Images ===========================================
+
+    To avoid accessibility problems for people who aren't
+    able to see the image, you should provide a text
+    description using the alt and longdesc attributes.
+    In addition, avoid the use of server-side image maps.
+    Note that in this DTD there is no name attribute. That
+    is only available in the transitional and frameset DTD.
+  </a:documentation>
+
+  <define name="img">
+    <element name="img">
+      <ref name="img.attlist"/>
+      <empty/>
+    </element>
+  </define>
+
+  <define name="img.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <attribute name="src">
+      <ref name="URI"/>
+    </attribute>
+    <attribute name="alt">
+      <ref name="Text"/>
+    </attribute>
+    <optional>
+      <attribute name="longdesc">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="height">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="width">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="usemap">
+        <a:documentation>
+          usemap points to a map element which may be in this document
+          or an external document, although the latter is not widely supported
+        </a:documentation>
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="ismap">
+        <choice>
+          <value>ismap</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    ================== Client-side image maps ============================
+
+    These can be placed in the same document or grouped in a
+    separate document although this isn't yet widely supported
+  </a:documentation>
+
+  <define name="map">
+    <element name="map">
+      <ref name="map.attlist"/>
+      <choice>
+        <oneOrMore>
+          <choice>
+            <ref name="block"/>
+            <ref name="form"/>
+            <ref name="misc"/>
+          </choice>
+        </oneOrMore>
+        <oneOrMore>
+          <ref name="area"/>
+        </oneOrMore>
+      </choice>
+    </element>
+  </define>
+
+  <define name="map.attlist" combine="interleave">
+    <ref name="i18n"/>
+    <ref name="events"/>
+    <attribute name="id">
+      <data type="ID"/>
+    </attribute>
+    <optional>
+      <attribute name="class"/>
+    </optional>
+    <optional>
+      <attribute name="style">
+        <ref name="StyleSheet"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="title">
+        <ref name="Text"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="name">
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="area">
+    <element name="area">
+      <ref name="area.attlist"/>
+      <empty/>
+    </element>
+  </define>
+
+  <define name="area.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <ref name="focus"/>
+    <optional>
+      <attribute name="shape" a:defaultValue="rect">
+        <ref name="Shape"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="coords">
+        <ref name="Coords"/>
+      </attribute>
+    </optional>
+    <optional>
+      <choice>
+        <attribute name="href">
+          <ref name="URI"/>
+        </attribute>
+        <attribute name="nohref">
+          <value>nohref</value>
+        </attribute>
+      </choice>
+    </optional>
+    <attribute name="alt">
+      <ref name="Text"/>
+    </attribute>
+  </define>
+
+  <a:documentation>
+    ================ Forms ===============================================
+  </a:documentation>
+
+  <define name="form">
+    <a:documentation>
+      forms shouldn't be nested
+    </a:documentation>
+    <element name="form">
+      <ref name="form.attlist"/>
+      <ref name="form.content"/>
+    </element>
+  </define>
+
+  <define name="form.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <attribute name="action">
+      <ref name="URI"/>
+    </attribute>
+    <optional>
+      <attribute name="method" a:defaultValue="get">
+        <choice>
+          <value>get</value>
+          <value>post</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="enctype"
+                 a:defaultValue="application/x-www-form-urlencoded">
+        <ref name="ContentType"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onsubmit">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onreset">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="accept">
+        <ref name="ContentTypes"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="accept-charset">
+        <ref name="Charsets"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="label">
+    <a:documentation>
+      Each label must not contain more than ONE field
+      Label elements shouldn't be nested.
+    </a:documentation>
+    <element name="label">
+      <ref name="label.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="label.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <optional>
+      <attribute name="for">
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="accesskey">
+        <ref name="Character"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onfocus">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onblur">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="InputType">
+    <a:documentation>
+      the name attribute is required for all but submit &amp; reset
+    </a:documentation>
+    <choice>
+      <value>text</value>
+      <value>password</value>
+      <value>checkbox</value>
+      <value>radio</value>
+      <value>submit</value>
+      <value>reset</value>
+      <value>file</value>
+      <value>hidden</value>
+      <value>image</value>
+      <value>button</value>
+    </choice>
+  </define>
+
+  <define name="input">
+    <a:documentation>
+      form control
+    </a:documentation>
+    <element name="input">
+      <ref name="input.attlist"/>
+      <empty/>
+    </element>
+  </define>
+
+  <define name="input.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <ref name="focus"/>
+    <optional>
+      <attribute name="type" a:defaultValue="text">
+        <ref name="InputType"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="name"/>
+    </optional>
+    <optional>
+      <attribute name="value"/>
+    </optional>
+    <optional>
+      <attribute name="checked">
+        <choice>
+          <value>checked</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="disabled">
+        <choice>
+          <value>disabled</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="readonly">
+        <choice>
+          <value>readonly</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="size"/>
+    </optional>
+    <optional>
+      <attribute name="maxlength">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="src">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="alt"/>
+    </optional>
+    <optional>
+      <attribute name="usemap">
+        <ref name="URI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onselect">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onchange">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="accept">
+        <ref name="ContentTypes"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="select">
+    <a:documentation>
+      option selector
+    </a:documentation>
+    <element name="select">
+      <ref name="select.attlist"/>
+      <oneOrMore>
+        <choice>
+          <ref name="optgroup"/>
+          <ref name="option"/>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <define name="select.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <optional>
+      <attribute name="name"/>
+    </optional>
+    <optional>
+      <attribute name="size">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="multiple">
+        <choice>
+          <value>multiple</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="disabled">
+        <choice>
+          <value>disabled</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tabindex">
+        <ref name="tabindexNumber"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onfocus">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onblur">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onchange">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="optgroup">
+    <a:documentation>
+      option group
+    </a:documentation>
+    <element name="optgroup">
+      <ref name="optgroup.attlist"/>
+      <oneOrMore>
+        <ref name="option"/>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <define name="optgroup.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <optional>
+      <attribute name="disabled">
+        <choice>
+          <value>disabled</value>
+        </choice>
+      </attribute>
+    </optional>
+    <attribute name="label">
+      <ref name="Text"/>
+    </attribute>
+  </define>
+
+  <define name="option">
+    <a:documentation>
+      selectable choice
+    </a:documentation>
+    <element name="option">
+      <ref name="option.attlist"/>
+      <text/>
+    </element>
+  </define>
+
+  <define name="option.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <optional>
+      <attribute name="selected">
+        <choice>
+          <value>selected</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="disabled">
+        <choice>
+          <value>disabled</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="label">
+        <ref name="Text"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="value"/>
+    </optional>
+  </define>
+
+  <define name="textarea">
+    <a:documentation>
+      multi-line text field
+    </a:documentation>
+    <element name="textarea">
+      <ref name="textarea.attlist"/>
+      <text/>
+    </element>
+  </define>
+
+  <define name="textarea.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <ref name="focus"/>
+    <optional>
+      <attribute name="name"/>
+    </optional>
+    <attribute name="rows">
+      <ref name="Number"/>
+    </attribute>
+    <attribute name="cols">
+      <ref name="Number"/>
+    </attribute>
+    <optional>
+      <attribute name="disabled">
+        <choice>
+          <value>disabled</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="readonly">
+        <choice>
+          <value>readonly</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onselect">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="onchange">
+        <ref name="Script"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="fieldset">
+    <a:documentation>
+      The fieldset element is used to group form fields.
+      Only one legend element should occur in the content
+      and if present should only be preceded by whitespace.
+    </a:documentation>
+    <element name="fieldset">
+      <ref name="fieldset.attlist"/>
+      <ref name="legend"/>
+      <ref name="Flow"/>
+    </element>
+  </define>
+
+  <define name="fieldset.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <define name="legend">
+    <a:documentation>
+      fieldset label
+    </a:documentation>
+    <element name="legend">
+      <ref name="legend.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="legend.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <optional>
+      <attribute name="accesskey">
+        <ref name="Character"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="button">
+    <a:documentation>
+      Content is "Flow" excluding a, form and form controls
+
+      push button
+    </a:documentation>
+    <element name="button">
+      <ref name="button.attlist"/>
+      <ref name="button.content"/>
+    </element>
+  </define>
+
+  <define name="button.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <ref name="focus"/>
+    <optional>
+      <attribute name="name"/>
+    </optional>
+    <optional>
+      <attribute name="value"/>
+    </optional>
+    <optional>
+      <attribute name="type" a:defaultValue="submit">
+        <choice>
+          <value>button</value>
+          <value>submit</value>
+          <value>reset</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="disabled">
+        <choice>
+          <value>disabled</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <a:documentation>
+    ======================= Tables =======================================
+
+    Derived from IETF HTML table standard, see [RFC1942]
+  </a:documentation>
+
+  <define name="TFrame">
+    <a:documentation>
+      The border attribute sets the thickness of the frame around the
+      table. The default units are screen pixels.
+
+      The frame attribute specifies which parts of the frame around
+      the table should be rendered. The values are not the same as
+      CALS to avoid a name clash with the valign attribute.
+    </a:documentation>
+    <choice>
+      <value>void</value>
+      <value>above</value>
+      <value>below</value>
+      <value>hsides</value>
+      <value>lhs</value>
+      <value>rhs</value>
+      <value>vsides</value>
+      <value>box</value>
+      <value>border</value>
+    </choice>
+  </define>
+
+  <define name="TRules">
+    <a:documentation>
+      The rules attribute defines which rules to draw between cells:
+
+      If rules is absent then assume:
+          "none" if border is absent or border="0" otherwise "all"
+    </a:documentation>
+    <choice>
+      <value>none</value>
+      <value>groups</value>
+      <value>rows</value>
+      <value>cols</value>
+      <value>all</value>
+    </choice>
+  </define>
+
+  <define name="cellhalign">
+    <a:documentation>
+      horizontal alignment attributes for cell contents
+
+      char        alignment char, e.g. char=':'
+      charoff     offset for alignment char
+    </a:documentation>
+    <optional>
+      <attribute name="align">
+        <choice>
+          <value>left</value>
+          <value>center</value>
+          <value>right</value>
+          <value>justify</value>
+          <value>char</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="char">
+        <ref name="Character"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="charoff">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="cellvalign">
+    <a:documentation>
+      vertical alignment attributes for cell contents
+    </a:documentation>
+    <optional>
+      <attribute name="valign">
+        <choice>
+          <value>top</value>
+          <value>middle</value>
+          <value>bottom</value>
+          <value>baseline</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="table">
+    <element name="table">
+      <ref name="table.attlist"/>
+      <optional>
+        <ref name="caption"/>
+      </optional>
+      <choice>
+        <zeroOrMore>
+          <ref name="col"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="colgroup"/>
+        </zeroOrMore>
+      </choice>
+      <optional>
+        <ref name="thead"/>
+      </optional>
+      <optional>
+        <ref name="tfoot"/>
+      </optional>
+      <choice>
+        <oneOrMore>
+          <ref name="tbody"/>
+        </oneOrMore>
+        <oneOrMore>
+          <ref name="tr"/>
+        </oneOrMore>
+      </choice>
+    </element>
+  </define>
+
+  <define name="caption">
+    <element name="caption">
+      <ref name="caption.attlist"/>
+      <ref name="Inline"/>
+    </element>
+  </define>
+
+  <define name="thead">
+    <element name="thead">
+      <ref name="thead.attlist"/>
+      <oneOrMore>
+        <ref name="tr"/>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <define name="tfoot">
+    <element name="tfoot">
+      <ref name="tfoot.attlist"/>
+      <oneOrMore>
+        <ref name="tr"/>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <define name="tbody">
+    <element name="tbody">
+      <ref name="tbody.attlist"/>
+      <oneOrMore>
+        <ref name="tr"/>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <define name="colgroup">
+    <element name="colgroup">
+      <ref name="colgroup.attlist"/>
+      <zeroOrMore>
+        <ref name="col"/>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="col">
+    <element name="col">
+      <ref name="col.attlist"/>
+      <empty/>
+    </element>
+  </define>
+
+  <define name="tr">
+    <element name="tr">
+      <ref name="tr.attlist"/>
+      <oneOrMore>
+        <choice>
+          <ref name="th"/>
+          <ref name="td"/>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <define name="th">
+    <element name="th">
+      <ref name="th.attlist"/>
+      <ref name="Flow"/>
+    </element>
+  </define>
+
+  <define name="td">
+    <element name="td">
+      <ref name="td.attlist"/>
+      <ref name="Flow"/>
+    </element>
+  </define>
+
+  <define name="table.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <optional>
+      <attribute name="summary">
+        <ref name="Text"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="width">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="border">
+        <ref name="Pixels"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="frame">
+        <ref name="TFrame"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rules">
+        <ref name="TRules"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="cellspacing">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="cellpadding">
+        <ref name="Length"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="caption.attlist" combine="interleave">
+    <ref name="attrs"/>
+  </define>
+
+  <a:documentation>
+    colgroup groups a set of col elements. It allows you to group
+    several semantically related columns together.
+  </a:documentation>
+
+  <define name="colgroup.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <optional>
+      <attribute name="span" a:defaultValue="1">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="width">
+        <ref name="MultiLength"/>
+      </attribute>
+    </optional>
+    <ref name="cellhalign"/>
+    <ref name="cellvalign"/>
+  </define>
+
+  <a:documentation>
+    col elements define the alignment properties for cells in
+    one or more columns.
+
+    The width attribute specifies the width of the columns, e.g.
+
+        width=64        width in screen pixels
+        width=0.5*      relative width of 0.5
+
+    The span attribute causes the attributes of one
+    col element to apply to more than one column.
+  </a:documentation>
+
+  <define name="col.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <optional>
+      <attribute name="span" a:defaultValue="1">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="width">
+        <ref name="MultiLength"/>
+      </attribute>
+    </optional>
+    <ref name="cellhalign"/>
+    <ref name="cellvalign"/>
+  </define>
+
+  <a:documentation>
+    Use thead to duplicate headers when breaking table
+    across page boundaries, or for static headers when
+    tbody sections are rendered in scrolling panel.
+
+    Use tfoot to duplicate footers when breaking table
+    across page boundaries, or for static footers when
+    tbody sections are rendered in scrolling panel.
+
+    Use multiple tbody sections when rules are needed
+    between groups of table rows.
+  </a:documentation>
+
+  <define name="thead.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <ref name="cellhalign"/>
+    <ref name="cellvalign"/>
+  </define>
+
+  <define name="tfoot.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <ref name="cellhalign"/>
+    <ref name="cellvalign"/>
+  </define>
+
+  <define name="tbody.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <ref name="cellhalign"/>
+    <ref name="cellvalign"/>
+  </define>
+
+  <define name="tr.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <ref name="cellhalign"/>
+    <ref name="cellvalign"/>
+  </define>
+
+  <define name="Scope">
+    <a:documentation>
+      Scope is simpler than headers attribute for common tables
+    </a:documentation>
+    <choice>
+      <value>row</value>
+      <value>col</value>
+      <value>rowgroup</value>
+      <value>colgroup</value>
+    </choice>
+  </define>
+
+  <a:documentation>
+    th is for headers, td for data and for cells acting as both
+  </a:documentation>
+
+  <define name="th.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <optional>
+      <attribute name="abbr">
+        <ref name="Text"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="axis"/>
+    </optional>
+    <optional>
+      <attribute name="headers">
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="scope">
+        <ref name="Scope"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rowspan" a:defaultValue="1">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="colspan" a:defaultValue="1">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <ref name="cellhalign"/>
+    <ref name="cellvalign"/>
+  </define>
+
+  <define name="td.attlist" combine="interleave">
+    <ref name="attrs"/>
+    <optional>
+      <attribute name="abbr">
+        <ref name="Text"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="axis"/>
+    </optional>
+    <optional>
+      <attribute name="headers">
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="scope">
+        <ref name="Scope"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rowspan" a:defaultValue="1">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="colspan" a:defaultValue="1">
+        <ref name="Number"/>
+      </attribute>
+    </optional>
+    <ref name="cellhalign"/>
+    <ref name="cellvalign"/>
+  </define>
+
+</grammar>
