@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
-  <public publicId="-//W3C//DTD XHTML 1.1//EN" uri="../xhtml11-flat.dtd"/>
+  <public publicId="-//W3C//DTD XHTML 1.1//EN" uri="../dtd/xhtml11-flat.dtd"/>
   <public publicId="-//W3C//ENTITIES XHTML 1.1 Document Model 1.0//EN" uri="../dtd/xhtml11-model-1.mod"/>
   <public publicId="-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" uri="../dtd/xhtml-math-svg-flat.dtd"/>
 
